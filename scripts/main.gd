@@ -2,6 +2,8 @@ extends Node2D
 
 var selected_node = null
 var edges = []
+var enemy_count = 0
+var enemy = []
 
 func _ready():
 	for node in $Nodes.get_children():
@@ -48,13 +50,26 @@ func start_wave():
 	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
 	$Path2D.add_child(enemy)
 
-
 func spawn_enemy():
 	var enemy_scene = preload("res://scenes/Enemy.tscn")
 	var enemy = enemy_scene.instantiate()
 	
-	$Path2D.add_child(enemy)
-	enemy.set_h_offset(0.0)
+	enemy_count += 1
+	
+	# Add the enemy directly to Path2D, not to PathFollow2D
+	$Path2D.get_child(0).add_child(enemy)
 
 func _on_enemy_spawn_timer_timeout() -> void:
+	print("spawning enemy", enemy_count)
 	spawn_enemy()
+
+
+#func spawn_enemy():
+	#var enemy_scene = preload("res://scenes/Enemy.tscn")
+	#var enemy = enemy_scene.instantiate()
+	#
+	#$Path2D.get_child(0).add_child(enemy)
+	#
+#
+#func _on_enemy_spawn_timer_timeout() -> void:
+	#spawn_enemy()
