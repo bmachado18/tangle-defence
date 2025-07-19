@@ -6,6 +6,8 @@ var cross_count = 0
 var strength = 0
 var health = 0
 
+signal edge_break
+
 @onready var strength_label = $StrengthLabel
 @onready var health_label = $HealthLabel
 
@@ -15,6 +17,9 @@ func _ready():
 func initialize(node_a, node_b):
 	from_node = node_a
 	to_node = node_b
+	
+	$edge_create.play()
+	
 	update_position()
 	update_strength()
 
@@ -52,8 +57,9 @@ func update_labels():
 		else:
 			health_label.modulate = Color.RED
 
+
+
 func _draw():
-	# Your existing edge drawing code here
 	if from_node and to_node:
 		var color = Color.WHITE
 		# Optional: Change line color based on strength
@@ -70,3 +76,7 @@ func _draw():
 			color, 
 			2.0
 		)
+
+
+func _on_edge_break() -> void:
+	$edge_break.play()

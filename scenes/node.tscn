@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b8pkshs21er7c" path="res://icon.svg" id="1_6r00q"]
 [ext_resource type="Script" uid="uid://dkpfn2demaklb" path="res://scripts/Node.gd" id="1_ignic"]
-[ext_resource type="AudioStream" uid="uid://c8fed7v7qmqbd" path="res://assets/audio/tower_select.wav" id="3_dondh"]
+[ext_resource type="AudioStream" uid="uid://c8fed7v7qmqbd" path="res://assets/audio/edge_create.wav" id="3_dondh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ignic"]
 radius = 70.0

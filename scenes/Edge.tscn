@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://byiqnij1qhc5j"]
+[gd_scene load_steps=4 format=3 uid="uid://byiqnij1qhc5j"]
 
 [ext_resource type="Script" uid="uid://ckggsn42vkmjy" path="res://scripts/Edge.gd" id="1_np5sn"]
+[ext_resource type="AudioStream" uid="uid://yqdj531wuhex" path="res://assets/audio/hurt.wav" id="2_6c7p0"]
+[ext_resource type="AudioStream" uid="uid://c8fed7v7qmqbd" path="res://assets/audio/edge_create.wav" id="3_omghk"]
 
 [node name="Edge" type="Node2D"]
 script = ExtResource("1_np5sn")
@@ -14,3 +16,11 @@ offset_bottom = 23.0
 [node name="HealthLabel" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="edge_break" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6c7p0")
+
+[node name="edge_create" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_omghk")
+
+[connection signal="edge_break" from="." to="." method="_on_edge_break"]

@@ -14,6 +14,7 @@ var time_since_last_attack := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$player_damage.play()
 	sprite.play()
 
 
@@ -26,7 +27,9 @@ func _process(delta):
 	for edge in get_tree().get_nodes_in_group("Edges"):
 		if edge.health > 0 and is_touching_edge(edge):
 			touched = true
+			
 			if time_since_last_attack >= attack_cooldown:
+				$edge_remove.play()
 				apply_combat(edge)
 				time_since_last_attack = 0.0
 				break  # Optional: one edge per tick
@@ -44,7 +47,8 @@ func is_touching_edge(edge) -> bool:
 	
 func apply_combat(edge):
 	print("Combat triggered: enemy health =", health, ", edge health =", edge.health)
-
+	
+	
 	edge.health -= strength
 	health -= edge.strength
 
@@ -53,18 +57,20 @@ func apply_combat(edge):
 
 	if edge.health <= 0:
 		print("Edge destroyed")
+		
 		edge.queue_free()
+		
 		if is_instance_valid(edge):
 			edge.queue_redraw()
 
 	if health <= 0:
-		
 		print("Enemy destroyed")
-		edge_collision.emit()
+		
 		call_deferred("queue_free")
 
 
 func _on_edge_collision() -> void:
+	$edge_remove.play()
 	print("Edge collision audio should be triggered")
-	$player_damage.play()
+	
 	

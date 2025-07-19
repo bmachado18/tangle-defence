@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c8fed7v7qmqbd"
-path="res://.godot/imported/tower_select.wav-0a75e528319b7878d10d1cb5910cd1dc.sample"
+path="res://.godot/imported/edge_create.wav-664d834734ea3e079bbd4dd62ae53ef6.sample"
 
 [deps]
 
-source_file="res://assets/audio/tower_select.wav"
-dest_files=["res://.godot/imported/tower_select.wav-0a75e528319b7878d10d1cb5910cd1dc.sample"]
+source_file="res://assets/audio/edge_create.wav"
+dest_files=["res://.godot/imported/edge_create.wav-664d834734ea3e079bbd4dd62ae53ef6.sample"]
 
 [params]
 

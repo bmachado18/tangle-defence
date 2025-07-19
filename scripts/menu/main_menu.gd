@@ -10,7 +10,6 @@ func _on_button_options_pressed() -> void:
 	$button_click.play()
 	pass # Replace with function body.
 
-
 func _on_button_quit_pressed() -> void:
 	$button_click.play()
 	get_tree().quit()
