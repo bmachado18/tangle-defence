@@ -7,5 +7,4 @@ func _process(delta):
 	# Access the parent PathFollow2D node
 
 	if get_parent() is PathFollow2D:
-		
 		get_parent().offset += speed * delta

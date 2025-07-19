@@ -41,20 +41,26 @@ func create_edge(a, b):
 	# Register this edge preventing duplicates
 	edge_pairs[get_edge_key(a, b)] = true
 	edge_count += 1
-	print(edge_count)
+	print("Edge created with strength:", edge.strength)
 	
 	check_crosses()
 
 func check_crosses():
+	# Reset cross counts
 	for e1 in edges:
 		e1.cross_count = 0
+	
+	# Calculate crossings
 	for i in edges.size():
 		for j in range(i + 1, edges.size()):
 			if do_edges_cross(edges[i], edges[j]):
 				edges[i].cross_count += 1
 				edges[j].cross_count += 1
+	
+	# Update all edge strengths and visuals
 	for edge in edges:
 		edge.update_strength()
+		edge.update_position()  # Update label position too
 
 func do_edges_cross(e1, e2):
 	var a1 = e1.from_node.global_position
