@@ -14,6 +14,7 @@ func _on_node_selected(node):
 	if selected_node == null:
 		print("Node: %s has been selected" % node.get_parent().name)
 		selected_node = node
+		
 	else:
 		if selected_node != node:
 			if not edge_exists(selected_node, node):

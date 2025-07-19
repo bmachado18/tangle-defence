@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://bswe25340gm8u"]
+
+[ext_resource type="Script" uid="uid://k82w2r5hxaqo" path="res://scripts/menu/main_menu.gd" id="1_w4w6c"]
+[ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="2_5glal"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w4w6c")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_top = 163.0
+offset_right = 1151.0
+offset_bottom = 420.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "TANGLE-DEFENCE"
+
+[node name="button_play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="button_options" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="button_quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="button_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5glal")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/button_play" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/button_options" to="." method="_on_button_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/button_quit" to="." method="_on_button_quit_pressed"]

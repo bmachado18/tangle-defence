@@ -3214,8 +3214,6 @@ cubic_interp = false
 
 [node name="Edges" type="Node2D" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [node name="Nodes" type="Node2D" parent="."]
 
 [node name="Node" parent="Nodes" instance=ExtResource("1_uwrxv")]
