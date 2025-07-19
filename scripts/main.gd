@@ -62,14 +62,3 @@ func spawn_enemy():
 func _on_enemy_spawn_timer_timeout() -> void:
 	print("spawning enemy", enemy_count)
 	spawn_enemy()
-
-
-#func spawn_enemy():
-	#var enemy_scene = preload("res://scenes/Enemy.tscn")
-	#var enemy = enemy_scene.instantiate()
-	#
-	#$Path2D.get_child(0).add_child(enemy)
-	#
-#
-#func _on_enemy_spawn_timer_timeout() -> void:
-	#spawn_enemy()
