@@ -5,6 +5,7 @@ var to_node
 var cross_count = 0
 var strength = 0.0
 
+
 const MAX_STRENGTH = 10.0
 const K = 0.5
 const C = 0.3

@@ -7,9 +7,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_8cj0n"]
 _data = {
-"points": PackedVector2Array(-115.673, 0.174591, 115, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 162, -59, 0, 0, 0, 0, 173, -37, 0, 0, 0, 0, 167, -23, 0, 0, 0, 0, 145, -24, 0, 0, 0, 0, 123, -20, 0, 0, 0, 0, 73, -14, 0, 0, 0, 0, 109, 37, 0, 0, 0, 0, 146, 48, 0, 0, 0, 0, 158, 46)
+"points": PackedVector2Array(-115.673, 0.174591, 115, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 162, -59, 0, 0, 0, 0, 173, -37, 0, 0, 0, 0, 167, -23, 0, 0, 0, 0, 145, -24, 0, 0, 0, 0, 123, -20, 0, 0, 0, 0, 140, 16, 0, 0, 0, 0, 109, 37, 0, 0, 0, 0, 146, 48, 0, 0, 0, 0, 158, 46, 0, 0, 0, 0, 0, 0)
 }
-point_count = 11
+point_count = 12
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -43,7 +43,7 @@ position = Vector2(-96, 0)
 [node name="Node_B" parent="Nodes" instance=ExtResource("1_uwrxv")]
 position = Vector2(88, 0)
 
-[node name="Node_B2" parent="Nodes" instance=ExtResource("1_uwrxv")]
+[node name="Node_C" parent="Nodes" instance=ExtResource("1_uwrxv")]
 position = Vector2(-3, 40)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
