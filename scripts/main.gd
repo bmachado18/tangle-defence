@@ -4,9 +4,6 @@ var selected_node = null
 var edges = []
 
 func _ready():
-	
-	#var node_A = get_node('Nodes/Node_A')
-	#node_A.selected_node.connect(_on_node_selected)
 	for node in $Nodes.get_children():
 		print(node.get_child(0).name)
 		node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
@@ -45,3 +42,19 @@ func do_edges_cross(e1, e2):
 	var a2 = e1.to_node.global_position
 	var b2 = e2.to_node.global_position
 	return Geometry2D.segment_intersects_segment(a1, a2, b1, b2)
+	
+	
+func start_wave():
+	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+	$Path2D.add_child(enemy)
+
+
+func spawn_enemy():
+	var enemy_scene = preload("res://scenes/Enemy.tscn")
+	var enemy = enemy_scene.instantiate()
+	
+	$Path2D.add_child(enemy)
+	enemy.set_h_offset(0.0)
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	spawn_enemy()
