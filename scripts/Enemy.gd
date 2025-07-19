@@ -1,10 +1,14 @@
-extends Node2D
+extends PathFollow2D
 
-@export var speed = 100
-var strength = 3.0
+var speed = 0.1
 
-func _process(delta):
-	# Access the parent PathFollow2D node
+@onready var sprite = $AnimatedSprite2D
 
-	if get_parent() is PathFollow2D:
-		get_parent().offset += speed * delta
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	sprite.play()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	progress_ratio += delta * speed

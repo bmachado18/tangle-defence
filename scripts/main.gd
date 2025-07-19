@@ -74,15 +74,18 @@ func start_wave():
 	$Path2D.add_child(enemy)
 
 func spawn_enemy():
-	var enemy_scene = preload("res://scenes/Enemy.tscn")
-	var enemy = enemy_scene.instantiate()
+	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+	# Start at beginning up path
+	enemy.progress = 0
 	
+ 	#add directly to path2d
+	$Path2D.add_child(enemy)
+
 	enemy_count += 1
 	
 	# Add the enemy directly to Path2D, not to PathFollow2D
-	$Path2D.get_child(0).add_child(enemy)
+	#$Path2D.get_child(0).add_child(enemy)
+	print("Spawned enemy #", enemy_count)
 
 func _on_enemy_spawn_timer_timeout() -> void:
-	#print("spawning enemy", enemy_count)
-	#spawn_enemy()
-	pass
+	spawn_enemy()

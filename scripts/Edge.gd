@@ -25,7 +25,7 @@ func update_position():
 
 func update_strength():
 	# Calculate strength based on cross_count (adjust formula as needed)
-	strength = max(1, 10 - cross_count)  # Example: strength decreases with crossings
+	strength = max(1, 10 - cross_count*3)  # Example: strength decreases with crossings
 	
 	# Update the label text
 	if strength_label:

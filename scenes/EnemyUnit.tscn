@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b78wr35tt82ub"]
+[gd_scene load_steps=3 format=3 uid="uid://dn5ftraerrhd"]
 
 [ext_resource type="PackedScene" uid="uid://di85kihjou8as" path="res://scenes/Enemy.tscn" id="1_7ieij"]
 
@@ -14,13 +14,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	offset += speed * delta
+	progress += speed * delta
 "
 
 [node name="EnemyUnit" type="Node2D"]
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 script = SubResource("GDScript_7ieij")
-speed = null
 
 [node name="Enemy" parent="PathFollow2D" instance=ExtResource("1_7ieij")]
