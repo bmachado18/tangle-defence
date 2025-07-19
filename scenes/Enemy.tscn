@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://di85kihjou8as"]
+[gd_scene load_steps=12 format=3 uid="uid://di85kihjou8as"]
 
 [ext_resource type="Texture2D" uid="uid://di6ac8jxdyjch" path="res://assets/enemies/infantry/tier1/move_00.png" id="1_1i2q2"]
 [ext_resource type="Script" uid="uid://73mrgvecfhwx" path="res://scripts/Enemy.gd" id="1_ly5gv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dffq554qqcbxu" path="res://assets/enemies/infantry/tier1/move_05.png" id="6_gr8dl"]
 [ext_resource type="Texture2D" uid="uid://d052w1hmmyowj" path="res://assets/enemies/infantry/tier1/move_06.png" id="7_axa8o"]
 [ext_resource type="Texture2D" uid="uid://b82rrramnh2pw" path="res://assets/enemies/infantry/tier1/move_07.png" id="8_4iqch"]
+[ext_resource type="AudioStream" uid="uid://yqdj531wuhex" path="res://assets/audio/hurt.wav" id="10_82o86"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x3f71"]
 animations = [{
@@ -49,3 +50,8 @@ script = ExtResource("1_ly5gv")
 scale = Vector2(0.85, 0.85)
 sprite_frames = SubResource("SpriteFrames_x3f71")
 frame_progress = 0.472146
+
+[node name="player_damage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_82o86")
+
+[connection signal="edge_collision" from="." to="." method="_on_edge_collision"]

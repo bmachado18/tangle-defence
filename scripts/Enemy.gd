@@ -1,5 +1,7 @@
 extends PathFollow2D
 
+signal edge_collision
+
 var base_speed := 0.1
 var current_speed := base_speed
 var health = 5
@@ -45,6 +47,7 @@ func apply_combat(edge):
 
 	edge.health -= strength
 	health -= edge.strength
+
 	edge.update_labels()
 	print("after combat: enemy health =", health, ", edge health =", edge.health)
 
@@ -55,5 +58,13 @@ func apply_combat(edge):
 			edge.queue_redraw()
 
 	if health <= 0:
+		
 		print("Enemy destroyed")
+		edge_collision.emit()
 		call_deferred("queue_free")
+
+
+func _on_edge_collision() -> void:
+	print("Edge collision audio should be triggered")
+	$player_damage.play()
+	
