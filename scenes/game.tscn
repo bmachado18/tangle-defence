@@ -24,6 +24,10 @@ curve = SubResource("Curve2D_8cj0n")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 
+[node name="Edges" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
 [node name="Nodes" type="Node2D" parent="."]
 
 [node name="Node_A" parent="Nodes" instance=ExtResource("1_uwrxv")]
@@ -31,7 +35,3 @@ position = Vector2(-96, 0)
 
 [node name="Node_B" parent="Nodes" instance=ExtResource("1_uwrxv")]
 position = Vector2(88, 0)
-
-[node name="Edges" type="Node2D" parent="."]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]

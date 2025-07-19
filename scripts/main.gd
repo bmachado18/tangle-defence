@@ -4,14 +4,14 @@ var selected_node = null
 var edges = []
 
 func _ready():
-
+	
+	#var node_A = get_node('Nodes/Node_A')
+	#node_A.selected_node.connect(_on_node_selected)
 	for node in $Nodes.get_children():
-		print(node.name)
-		node.connect("node_selected", Callable(self, "_on_node_selected"))
+		print(node.get_child(0).name)
+		node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
 		
-
 func _on_node_selected(node):
-	print("_on_node_selected")
 	if selected_node == null:
 		print("node has been selected")
 		selected_node = node
