@@ -6,9 +6,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_8cj0n"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 522, -209, 0, 0, 0, 0, 553.395, -234.727, 0, 0, 0, 0, 685, -350, 0, 0, 0, 0, -375, -348, 0, 0, 0, 0, -368, 221, 0, 0, 0, 0, 680, 229, 0, 0, 0, 0, 684, -348, 0, 0, 0, 0, 523, -206)
+"points": PackedVector2Array(0, 0, 0, 0, -574, -220, 0, 0, 0, 0, 506, -220, 0, 0, 0, 0, 506, 36, 0, 0, 0, 0, -134, 36, 0, 0, 0, 0, -134, 164, 0, 0, 0, 0, 762, 164)
 }
-point_count = 8
+point_count = 6
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -25,7 +25,7 @@ curve = SubResource("Curve2D_8cj0n")
 
 [node name="Enemy" parent="Path2D" instance=ExtResource("2_lnu2h")]
 visible = false
-position = Vector2(522, -209)
+position = Vector2(-574, -220)
 rotates = false
 cubic_interp = false
 
@@ -59,7 +59,7 @@ position = Vector2(-10, 281)
 position = Vector2(-524, -6)
 
 [node name="Node9" parent="Nodes" instance=ExtResource("1_uwrxv")]
-position = Vector2(511, -9)
+position = Vector2(528, 0)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 2.0

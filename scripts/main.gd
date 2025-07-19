@@ -2,7 +2,6 @@ extends Node2D
 var selected_node = null
 var edges = []
 var enemy_count = 0
-var enemy = []
 var edge_pairs = {}
 var edge_count = 0
 

@@ -10,4 +10,7 @@ script = ExtResource("1_np5sn")
 [node name="StrengthLabel" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "tes"
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

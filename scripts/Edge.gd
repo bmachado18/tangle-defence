@@ -4,9 +4,14 @@ var from_node
 var to_node
 var cross_count = 0
 var strength = 0
+var health = 0
 
-@onready var strength_label = $StrengthLabel  # Reference to the Label node
+@onready var strength_label = $StrengthLabel
+@onready var health_label = $HealthLabel
 
+func _ready():
+	add_to_group("Edges")
+	
 func initialize(node_a, node_b):
 	from_node = node_a
 	to_node = node_b
@@ -18,26 +23,34 @@ func update_position():
 	# This depends on how you're currently drawing your edges
 	queue_redraw()
 	
-	# Position the label at the midpoint of the edge
+	# Position labels around midpoint
+	var midpoint = (from_node.global_position + to_node.global_position) / 2
 	if strength_label:
-		var midpoint = (from_node.global_position + to_node.global_position) / 2
-		strength_label.global_position = midpoint - strength_label.size / 2
+		strength_label.global_position = midpoint + Vector2(0, -10)
+	if health_label:
+		health_label.global_position = midpoint + Vector2(0, 10)
 
 func update_strength():
-	# Calculate strength based on cross_count (adjust formula as needed)
-	strength = max(1, 10 - cross_count*3)  # Example: strength decreases with crossings
-	
-	# Update the label text
+	strength = max(1, 10 - cross_count * 3)
+	if health == 0:
+		health = strength
+
+	update_labels()
+			
+
+func update_labels():
 	if strength_label:
-		strength_label.text = str(strength)
-		
-		# Optional: Color code the strength
-		if strength >= 7:
-			strength_label.modulate = Color.GREEN
-		elif strength >= 4:
-			strength_label.modulate = Color.YELLOW
+		strength_label.text = "S: %d" % strength
+	if health_label:
+		health_label.text = "H: %d" % health
+
+		# Optional color coding
+		if health >= 7:
+			health_label.modulate = Color.GREEN
+		elif health >= 4:
+			health_label.modulate = Color.YELLOW
 		else:
-			strength_label.modulate = Color.RED
+			health_label.modulate = Color.RED
 
 func _draw():
 	# Your existing edge drawing code here
