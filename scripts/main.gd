@@ -227,7 +227,6 @@ func _on_texture_button_toggled(toggled_on: bool) -> void:
 func _unhandled_input(event):
 	if is_placing_node and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		var click_pos = get_global_mouse_position()
-		var grid_size = 32  # Or whatever your tile size is
 		var grid_pos = Vector2(
 			floor(click_pos.x / grid_size) * grid_size,
 			floor(click_pos.y / grid_size) * grid_size
@@ -243,10 +242,3 @@ func place_node(pos: Vector2):
 
 	is_placing_node = false
 	$Panel/TextureButton.button_pressed = false
-
-func _draw():
-	var view_size = get_viewport_rect().size
-	for x in range(0, int(view_size.x), grid_size):
-		draw_line(Vector2(x, 0), Vector2(x, view_size.y), Color(0.2, 0.2, 0.2, 0.4))
-	for y in range(0, int(view_size.y), grid_size):
-		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))

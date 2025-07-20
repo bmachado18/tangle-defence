@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ditj46pxkyj44"]
+[gd_scene load_steps=9 format=3 uid="uid://ditj46pxkyj44"]
 
 [ext_resource type="PackedScene" uid="uid://dsfrokpsfah4x" path="res://scenes/node.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://ciqfp2oxnujm1" path="res://scripts/main.gd" id="1_yqjtg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b8pkshs21er7c" path="res://icon.svg" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://dbaxyke4ev42e" path="res://assets/heart-svgrepo-com.svg" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://cqqx6ms0s2w55" path="res://assets/money-svgrepo-com.svg" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://b5bj5mdyv3w2v" path="res://scenes/grid_overlay.gd" id="7_u5sy4"]
 
 [sub_resource type="Curve2D" id="Curve2D_8cj0n"]
 _data = {
@@ -14,7 +15,18 @@ _data = {
 point_count = 6
 
 [node name="Game" type="Node2D"]
+position = Vector2(3, 28)
+scale = Vector2(1.66, 1.66)
 script = ExtResource("1_yqjtg")
+
+[node name="GridOverlay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_u5sy4")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 576.0
@@ -97,8 +109,7 @@ scale = Vector2(1.49, 1.49)
 text = "$1000"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(192, 0)
-offset = Vector2(0.62, 0.23)
+position = Vector2(192.771, 0)
 zoom = Vector2(0.749, 1)
 
 [node name="Path2D" type="Path2D" parent="."]
