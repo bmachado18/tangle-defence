@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://c8fed7v7qmqbd" path="res://assets/audio/edge_create.wav" id="3_omghk"]
 
 [node name="Edge" type="Node2D"]
-z_index = 4
+z_index = 5
 script = ExtResource("1_np5sn")
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -23,5 +23,3 @@ stream = ExtResource("2_6c7p0")
 
 [node name="edge_create" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_omghk")
-
-[connection signal="edge_break" from="." to="." method="_on_edge_break"]

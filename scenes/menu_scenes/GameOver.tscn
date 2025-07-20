@@ -1,0 +1,115 @@
+[gd_scene load_steps=11 format=3 uid="uid://be5subym6oda8"]
+
+[ext_resource type="Script" uid="uid://ce1d5lgnq2ciu" path="res://scripts/game_over.gd" id="1_yv6cs"]
+[ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="2_8fy5p"]
+[ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="3_1erew"]
+[ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="4_8fy5p"]
+[ext_resource type="Texture2D" uid="uid://v81yji2bxhg7" path="res://assets/ui/Background.jpg" id="5_yufox"]
+[ext_resource type="Texture2D" uid="uid://rmsnherw65oj" path="res://assets/ui/parallax-1.png" id="6_jxddg"]
+[ext_resource type="Texture2D" uid="uid://b8mry67mq4oyh" path="res://assets/ui/parallax-2.png" id="7_am4xy"]
+[ext_resource type="Texture2D" uid="uid://fhnfdmra5vaj" path="res://assets/ui/parallax-3.png" id="8_h6o1f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i3hib"]
+font = ExtResource("2_8fy5p")
+font_size = 128
+
+[sub_resource type="LabelSettings" id="LabelSettings_8fy5p"]
+font = ExtResource("2_8fy5p")
+font_size = 64
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yv6cs")
+
+[node name="GameOverLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 149.0
+offset_right = 1920.0
+offset_bottom = 554.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_i3hib")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonTryAgain" type="Button" parent="."]
+layout_mode = 0
+offset_left = 855.0
+offset_top = 593.0
+offset_right = 1166.0
+offset_bottom = 673.0
+theme = ExtResource("3_1erew")
+text = "Try again?"
+
+[node name="ButtonMainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 855.0
+offset_top = 751.0
+offset_right = 1166.0
+offset_bottom = 831.0
+theme = ExtResource("3_1erew")
+text = "Main Menu"
+
+[node name="button_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8fy5p")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 855.0
+offset_top = 460.0
+offset_right = 1166.0
+offset_bottom = 540.0
+text = "Score: "
+label_settings = SubResource("LabelSettings_8fy5p")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Node2D"]
+
+[node name="Parallax2D-background" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="background" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D-background"]
+texture = ExtResource("5_yufox")
+
+[node name="Parallax2D" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="LowestParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D"]
+rotation = 3.14159
+texture = ExtResource("6_jxddg")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(20, 0)
+
+[node name="MidParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D2"]
+rotation = 3.14159
+texture = ExtResource("7_am4xy")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(30, 0)
+
+[node name="HighParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D3"]
+rotation = 3.14159
+texture = ExtResource("8_h6o1f")
+
+[connection signal="pressed" from="ButtonTryAgain" to="." method="_on_button_try_again_pressed"]
+[connection signal="pressed" from="ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
