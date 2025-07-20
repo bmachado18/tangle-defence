@@ -59,3 +59,4 @@ stream = ExtResource("10_82o86")
 stream = ExtResource("11_1gqeq")
 
 [connection signal="edge_collision" from="." to="." method="_on_edge_collision"]
+[connection signal="edge_death" from="." to="." method="_on_edge_death"]

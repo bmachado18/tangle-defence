@@ -1,7 +1,17 @@
 extends Node2D
 var selected_node = null
 var edges = []
+
+
+var current_wave = 1
+var wave_sizes = [1,2,3,4]
+var number_of_waves = len(wave_sizes) 	# number of waves
+
+
+var enemy_batch = [] 		# array of enemies that we will be using
 var enemy_count = 0
+var enemy_max = 12
+
 var edge_pairs = {}
 var edge_count = 0
 
@@ -62,6 +72,10 @@ func check_crosses():
 		edge.update_strength()
 		edge.update_position()  # Update label position too
 
+func _on_edge_break():
+	print("signal recieved")
+	pass
+
 func do_edges_cross(e1, e2):
 	var a1 = e1.from_node.global_position
 	var b1 = e2.from_node.global_position
@@ -71,7 +85,41 @@ func do_edges_cross(e1, e2):
 	
 func start_wave():
 	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+	
+	 
+	
 	$Path2D.add_child(enemy)
+
+
+func prepare_wave_batch():
+	# Clear any existing batch
+	enemy_batch.clear()
+	
+	# Create individual enemy instances
+	for i in range(enemy_max):
+		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+		enemy_batch.append(enemy)
+	
+	print("Prepared batch of %d enemies" % enemy_batch.size())
+		
+func prepare_enemy_batch(enemy):
+	$Path2D.add_child(enemy)
+	print("spawned enemy %s" % enemy_count)
+	enemy_count += 1
+	
+func spawn_enemy_batch():
+	# Spawn all enemies from the batch
+	for enemy in enemy_batch:
+		if enemy != null:
+			# Set initial progress
+			enemy.progress = 0
+			# Add to Path2D
+			$Path2D.add_child(enemy)
+			enemy_count += 1
+			print("Spawned enemy #%d" % enemy_count)
+	
+	# Clear the batch after spawning
+	enemy_batch.clear()
 
 func spawn_enemy():
 	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
@@ -87,5 +135,69 @@ func spawn_enemy():
 	#$Path2D.get_child(0).add_child(enemy)
 	print("Spawned enemy #", enemy_count)
 
+
+
+
+# creates a batch of enemies after timer amount of seconds
+# autostart is enabled
+func _on_enemy_batch_creation_timer_timeout() -> void:
+	# Stop the timer since it should only run once per wave
+	$EnemyBatchCreationTimer.stop()
+	
+	# Clear any existing batch
+	enemy_batch.clear()
+	
+	# Populate current batch of enemies
+	for i in range(0, wave_sizes[current_wave - 1]):
+		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+		enemy_batch.append(enemy)
+		
+	print("Prepared %d enemies for wave %d" % [enemy_batch.size(), current_wave])
+	
+	# Start the spawning timer (make sure it's set to repeat in the editor)
+	$EnemySpawnTimer.start()
+
+
+
 func _on_enemy_spawn_timer_timeout() -> void:
-	spawn_enemy()
+	# Check if there are enemies left to spawn in the current batch
+	if enemy_batch.size() > 0:
+		# Spawn the next enemy from the batch
+		var enemy = enemy_batch.pop_front()  # Remove first enemy from batch
+		
+		if enemy != null:
+			# Set initial progress
+			enemy.progress = 0
+			# Add to Path2D
+			$Path2D.add_child(enemy)
+			print("Spawned enemy from batch, %d remaining" % enemy_batch.size())
+		
+		# If there are more enemies in the batch, keep the timer running
+		if enemy_batch.size() > 0:
+			# Timer will automatically repeat since it should be set to repeat
+			pass
+		else:
+			# No more enemies in this batch, stop the spawn timer
+			$EnemySpawnTimer.stop()
+			print("Finished spawning wave %d" % current_wave)
+			
+			# Check if we need to prepare the next wave
+			if current_wave < number_of_waves:
+				current_wave += 1
+				print("Wave %d completed. Next wave in %d seconds..." % [current_wave - 1, $WaveDelayTimer.wait_time])
+				# Start the delay timer before the next wave
+				$WaveDelayTimer.start()
+			else:
+				print("All waves completed!")
+	else:
+		# No enemies in batch, stop the timer
+		$EnemySpawnTimer.stop()
+		print("No enemies in batch to spawn")
+	
+
+
+func _on_wave_delay_timer_timeout() -> void:
+	$WaveDelayTimer.stop()
+	print("Starting wave %d" % current_wave)
+	# After delay, start preparing the next batch
+	$EnemyBatchCreationTimer.start()

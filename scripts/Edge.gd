@@ -79,4 +79,4 @@ func _draw():
 
 
 func _on_edge_break() -> void:
-	$edge_break.play()
+	emit_signal("edge_break", self)

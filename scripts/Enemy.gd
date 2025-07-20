@@ -1,6 +1,7 @@
 extends PathFollow2D
 
 signal edge_collision
+signal edge_death
 
 var base_speed := 0.1
 var current_speed := base_speed
@@ -14,7 +15,7 @@ var time_since_last_attack := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$player_damage.play()
+	
 	sprite.play()
 
 
@@ -74,3 +75,7 @@ func _on_edge_collision() -> void:
 	print("Edge collision audio should be triggered")
 	
 	
+
+
+func _on_edge_death() -> void:
+	pass # Replace with function body.
