@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bswe25340gm8u"]
+[gd_scene load_steps=10 format=3 uid="uid://bswe25340gm8u"]
 
 [ext_resource type="Script" uid="uid://k82w2r5hxaqo" path="res://scripts/menu/main_menu.gd" id="1_w4w6c"]
 [ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="2_5glal"]
 [ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="3_a2jmn"]
 [ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="4_1r6f3"]
 [ext_resource type="Texture2D" uid="uid://rmsnherw65oj" path="res://assets/ui/parallax-1.png" id="5_1r6f3"]
+[ext_resource type="Texture2D" uid="uid://v81yji2bxhg7" path="res://assets/ui/Background.jpg" id="5_q8m3n"]
 [ext_resource type="Texture2D" uid="uid://b8mry67mq4oyh" path="res://assets/ui/parallax-2.png" id="6_r26rp"]
 [ext_resource type="Texture2D" uid="uid://fhnfdmra5vaj" path="res://assets/ui/parallax-3.png" id="7_irokf"]
 
@@ -64,6 +65,15 @@ text = "Play"
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Node2D"]
+
+[node name="Parallax2D-background" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="background" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D-background"]
+texture = ExtResource("5_q8m3n")
 
 [node name="Parallax2D" type="Parallax2D" parent="Node2D/ParallaxBackground"]
 scroll_scale = Vector2(0.1, 0.1)
