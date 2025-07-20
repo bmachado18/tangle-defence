@@ -1,15 +1,11 @@
-
 [gd_scene load_steps=8 format=3 uid="uid://ditj46pxkyj44"]
 
 [ext_resource type="PackedScene" uid="uid://dsfrokpsfah4x" path="res://scenes/node.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://ciqfp2oxnujm1" path="res://scripts/main.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://di85kihjou8as" path="res://scenes/Enemy.tscn" id="2_lnu2h"]
-
-
 [ext_resource type="Texture2D" uid="uid://b8pkshs21er7c" path="res://icon.svg" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://dbaxyke4ev42e" path="res://assets/heart-svgrepo-com.svg" id="5_iywne"]
 [ext_resource type="Texture2D" uid="uid://cqqx6ms0s2w55" path="res://assets/money-svgrepo-com.svg" id="6_p57ef"]
-
 
 [sub_resource type="Curve2D" id="Curve2D_8cj0n"]
 _data = {
@@ -114,6 +110,7 @@ visible = false
 position = Vector2(-574, -220)
 rotates = false
 cubic_interp = false
+loop = true
 
 [node name="Edges" type="Node2D" parent="."]
 
@@ -146,5 +143,3 @@ position = Vector2(-524, -6)
 position = Vector2(528, 0)
 
 [connection signal="toggled" from="Panel/TextureButton" to="." method="_on_texture_button_toggled"]
-
-

@@ -220,10 +220,6 @@ func start_next_wave():
 	wave_state = WaveState.WAITING_TO_START
 	start_current_wave()
 
-func _on_enemy_spawn_timer_timeout() -> void:
-	spawn_enemy()
-
-
 func _on_texture_button_toggled(toggled_on: bool) -> void:
 	is_placing_node = toggled_on
 	print("Node placement mode:", is_placing_node)
@@ -254,4 +250,3 @@ func _draw():
 		draw_line(Vector2(x, 0), Vector2(x, view_size.y), Color(0.2, 0.2, 0.2, 0.4))
 	for y in range(0, int(view_size.y), grid_size):
 		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
-
