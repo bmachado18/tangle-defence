@@ -1,5 +1,14 @@
 extends Node2D
 
+var playerHealth = 50
+var playerMoney = 100
+
+var ropeCost = 5
+var towerCost = 10
+
+var enemyRefund = 5
+
+
 
 var selected_node = null
 var edges = []
@@ -36,6 +45,9 @@ var is_placing_node := false
 func _ready():
 	setup_node_connections()
 	setup_wave_system()
+	
+	$Panel/HealthLabel.text = str(playerHealth)
+	$Panel/MoneyLabel.text = str(playerMoney)
 	
 	
 func setup_node_connections():
@@ -76,6 +88,13 @@ func edge_exists(a, b) -> bool:
 	return get_edge_key(a, b) in edge_pairs
 
 func create_edge(a, b):
+	if playerMoney < ropeCost:
+		print("player does not have enough money to place rope")
+		return
+	
+	playerMoney -= ropeCost
+	update_money_label()
+	
 	var edge = preload("res://Scenes/Edge.tscn").instantiate()
 	$Edges.add_child(edge)
 	edge.initialize(a, b)
@@ -158,6 +177,8 @@ func spawn_next_enemy():
 		$Path2D.add_child(enemy)
 		enemy.enemy_despawn.connect(_on_enemy_despawn)
 		enemy.edge_destroyed.connect(_on_edge_destroyed)
+		enemy.enemy_death.connect(_on_enemy_death)
+
 
 		
 		current_wave_enemies_spawned += 1
@@ -210,9 +231,15 @@ func _unhandled_input(event):
 		get_viewport().set_input_as_handled()
 		
 func place_node(pos: Vector2):
+	if playerMoney < towerCost:
+		print("player does not have enough money")
+		return
+	
 	var new_node = preload("res://scenes/node.tscn").instantiate()
-	print(pos)
 	new_node.position = pos
+	
+	playerMoney -= towerCost
+	update_money_label()
 	
 	$Nodes.add_child(new_node)
 	new_node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
@@ -224,11 +251,28 @@ func place_node(pos: Vector2):
 	$Grid.visible = is_placing_node
 	$Panel/TextureButton.button_pressed = false
 
-func _on_enemy_despawn(enemy = null) -> void:
-	print("Enemy despawned")
+func _on_enemy_despawn(enemy):
 
-	if enemy:
-		enemy.queue_free()  # Optional: if not already freed
+	
+	print("Enemy reached the end of path")
+
+	
+	playerHealth -= enemy.strength # decrease health based on the strength level on the enemy
+	update_health_label()
+
+	enemy.queue_free()
+	
+	
+func update_health_label():
+	$Panel/HealthLabel.text = str(playerHealth)
+
+func update_money_label():
+	$Panel/MoneyLabel.text = str(playerMoney)
+
+func _on_enemy_death(enemy):
+	print("Enemy killed by edge — refunding money")
+	playerMoney += enemyRefund
+	update_money_label()
 
 func _on_edge_destroyed(edge):
 	if edge in edges:
