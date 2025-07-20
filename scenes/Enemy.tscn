@@ -1,47 +1,70 @@
 [gd_scene load_steps=13 format=3 uid="uid://di85kihjou8as"]
 
-[ext_resource type="Texture2D" uid="uid://di6ac8jxdyjch" path="res://assets/enemies/infantry/tier1/move_00.png" id="1_1i2q2"]
 [ext_resource type="Script" uid="uid://73mrgvecfhwx" path="res://scripts/Enemy.gd" id="1_ly5gv"]
-[ext_resource type="Texture2D" uid="uid://85hqpbsf2i2b" path="res://assets/enemies/infantry/tier1/move_01.png" id="2_ly5gv"]
-[ext_resource type="Texture2D" uid="uid://bhyqyhvfjcuil" path="res://assets/enemies/infantry/tier1/move_02.png" id="3_82o86"]
-[ext_resource type="Texture2D" uid="uid://cq7r8gfp7kir6" path="res://assets/enemies/infantry/tier1/move_03.png" id="4_1gqeq"]
-[ext_resource type="Texture2D" uid="uid://cciy5e8a5q002" path="res://assets/enemies/infantry/tier1/move_04.png" id="5_isvm2"]
-[ext_resource type="Texture2D" uid="uid://dffq554qqcbxu" path="res://assets/enemies/infantry/tier1/move_05.png" id="6_gr8dl"]
-[ext_resource type="Texture2D" uid="uid://d052w1hmmyowj" path="res://assets/enemies/infantry/tier1/move_06.png" id="7_axa8o"]
-[ext_resource type="Texture2D" uid="uid://b82rrramnh2pw" path="res://assets/enemies/infantry/tier1/move_07.png" id="8_4iqch"]
+[ext_resource type="Texture2D" uid="uid://dai8sj6bexjd6" path="res://assets/tiles/Character-and-Zombie.png" id="2_ft8do"]
 [ext_resource type="AudioStream" uid="uid://yqdj531wuhex" path="res://assets/audio/hurt.wav" id="10_82o86"]
 [ext_resource type="AudioStream" uid="uid://bwktj14m0pke8" path="res://assets/audio/15_human_dash_1.wav" id="11_1gqeq"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_x3f71"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wwv6"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(0, 120, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vja8"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(48, 120, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwav8"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(96, 120, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i2q2"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(144, 120, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ly5gv"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(192, 120, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82o86"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(240, 120, 48, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gqeq"]
+atlas = ExtResource("2_ft8do")
+region = Rect2(288, 120, 48, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_isvm2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1i2q2")
+"texture": SubResource("AtlasTexture_5wwv6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_ly5gv")
+"texture": SubResource("AtlasTexture_1vja8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_82o86")
+"texture": SubResource("AtlasTexture_iwav8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_1gqeq")
+"texture": SubResource("AtlasTexture_1i2q2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_isvm2")
+"texture": SubResource("AtlasTexture_ly5gv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_gr8dl")
+"texture": SubResource("AtlasTexture_82o86")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_axa8o")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_4iqch")
+"texture": SubResource("AtlasTexture_1gqeq")
 }],
 "loop": true,
 "name": &"default",
-"speed": 10.0
+"speed": 7.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"enemy",
+"speed": 5.0
 }]
 
 [node name="Enemy" type="PathFollow2D"]
@@ -49,9 +72,9 @@ loop = false
 script = ExtResource("1_ly5gv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.85, 0.85)
-sprite_frames = SubResource("SpriteFrames_x3f71")
-frame_progress = 0.472146
+scale = Vector2(2.6, 2.6)
+sprite_frames = SubResource("SpriteFrames_isvm2")
+frame_progress = 0.0097186
 
 [node name="player_damage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_82o86")

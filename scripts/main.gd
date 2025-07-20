@@ -173,6 +173,7 @@ func start_current_wave():
 	
 	
 func spawn_next_enemy():
+	print("spawned")
 	if current_wave_enemies_spawned < current_wave_enemy_target:
 		# Init the enemy
 		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
@@ -244,9 +245,18 @@ func place_node(pos: Vector2):
 	is_placing_node = false
 	$Panel/TextureButton.button_pressed = false
 
+
+
 func _draw():
-	var view_size = get_viewport_rect().size
+	# Get the visible area of the current node (usually the screen size)
+	var rect = get_viewport().get_visible_rect()
+	var view_size = rect.size
+	
+	# Draw vertical lines
 	for x in range(0, int(view_size.x), grid_size):
 		draw_line(Vector2(x, 0), Vector2(x, view_size.y), Color(0.2, 0.2, 0.2, 0.4))
+	
+	# Draw horizontal lines  
 	for y in range(0, int(view_size.y), grid_size):
 		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
+	
