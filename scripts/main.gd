@@ -1,6 +1,6 @@
 extends Node2D
 
-var playerHealth = 50
+var playerHealth = 1
 var playerMoney = 100
 
 var ropeCost = 5
@@ -26,7 +26,7 @@ enum WaveState {
 
 var wave_state = WaveState.WAITING_TO_START
 var current_wave = 1
-var wave_sizes = [1,2,3,4]
+var wave_sizes = [1,2]
 var current_wave_enemies_spawned = 0
 var current_wave_enemy_target = 0
 
@@ -34,6 +34,7 @@ var current_wave_enemy_target = 0
 var time_between_enemies = 0.5
 var time_between_waves = 3.0
 var time_before_first_wave = 2.0
+var active_enemies := 0
 
 var wave_timer: Timer
 
@@ -147,12 +148,11 @@ func _on_wave_timer_timeout() -> void:
 			start_next_wave()
 		
 		WaveState.ALL_WAVES_COMPLETE:
-			print("ERROR: Timer fired when all waves should be complete!")
+			#_go_to_next_round()
 			return
 
 func start_current_wave():
 	if wave_sizes.size() == 0:
-		print("ERROR: Trying to start wave but no waves left!")
 		wave_state = WaveState.ALL_WAVES_COMPLETE
 		return
 			
@@ -178,6 +178,9 @@ func spawn_next_enemy():
 		
 		# add enemy to the 2D path
 		$Path2D.add_child(enemy)
+		
+		active_enemies += 1
+		
 		enemy.enemy_despawn.connect(_on_enemy_despawn)
 		enemy.edge_destroyed.connect(_on_edge_destroyed)
 		enemy.enemy_death.connect(_on_enemy_death)
@@ -208,6 +211,8 @@ func complete_current_wave():
 
 		remove_child(wave_timer)
 		wave_timer.queue_free()
+		
+		
 		
 
 func start_next_wave():
@@ -255,16 +260,30 @@ func place_node(pos: Vector2):
 	$Panel/TextureButton.button_pressed = false
 
 func _on_enemy_despawn(enemy):
-
-	
-	print("Enemy reached the end of path")
-
-	
 	playerHealth -= enemy.strength # decrease health based on the strength level on the enemy
+	
+	if playerHealth < 0:
+		call_deferred("_go_to_game_over")
+	
 	update_health_label()
 
 	enemy.queue_free()
 	
+	active_enemies -= 1
+	check_if_round_complete()
+
+func check_if_round_complete():
+	if wave_state == WaveState.ALL_WAVES_COMPLETE and active_enemies <= 0:
+		print("All enemies and waves complete — loading next round screen")
+		call_deferred("_go_to_next_round")
+
+
+
+func _go_to_game_over():
+	get_tree().change_scene_to_file("res://scenes/menu_scenes/GameOver.tscn")
+	
+func _go_to_next_round():
+	get_tree().change_scene_to_file("res://scenes/menu_scenes/player_win.tscn")
 	
 func update_health_label():
 	$Panel/HealthLabel.text = str(playerHealth)
@@ -276,6 +295,10 @@ func _on_enemy_death(enemy):
 	print("Enemy killed by edge — refunding money")
 	playerMoney += enemyRefund
 	update_money_label()
+	
+	
+	active_enemies -= 1
+	check_if_round_complete()
 
 func _on_edge_destroyed(edge):
 	if edge in edges:
