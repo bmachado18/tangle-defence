@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbet2oex550uw"]
+[gd_scene load_steps=11 format=3 uid="uid://bbet2oex550uw"]
 
+[ext_resource type="Script" uid="uid://gnopaunqlu5n" path="res://scripts/menu/info_scene.gd" id="1_8mnmq"]
 [ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="1_ftxn0"]
 [ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="2_8mnmq"]
 [ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="3_ampx8"]
@@ -12,6 +13,10 @@
 font = ExtResource("3_ampx8")
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_ftxn0"]
+font = ExtResource("3_ampx8")
+font_size = 32
+
 [node name="InfoScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -19,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8mnmq")
 
 [node name="ButtonMainMenu" type="Button" parent="."]
 offset_left = 856.0
@@ -42,6 +48,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Node2D" type="Node2D" parent="."]
+visible = false
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Node2D"]
 
@@ -85,3 +92,60 @@ autoscroll = Vector2(30, 0)
 [node name="HighParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D3"]
 rotation = 3.14159
 texture = ExtResource("7_tue3y")
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 168.0
+offset_right = 1856.0
+offset_bottom = 920.0
+
+[node name="Welcome" type="Label" parent="ScrollContainer2"]
+layout_mode = 2
+text = "Welcome to Tangle Defense, a tower-defense meets path-building strategy game.
+
+Your mission is to stop incoming enemies by constructing ropes between 
+placed nodes and defending the path.
+
+Goal
+	Your goal is to survive all enemy waves.
+
+	Use your resources to place nodes and connect them with ropes to damage 
+	and destroy enemies before they reach the end of the path.
+
+Gameplay
+	- Click the \"+\" button to place a node on the grid. This costs money.
+	- Select two nodes to connect them with a rope. This also costs money.
+	- Enemies follow a path through the map.
+	- Ropes automatically damage enemies that pass close to them.
+	- Ropes become weaker the more they intersect with other ropes.
+	- If an enemy reaches the end of the path, it reduces your health.
+
+Money
+	- You begin the game with 100 money.
+	- Placing a node costs 10.
+	- Placing a rope costs 5.
+	- Each enemy you defeat rewards you with additional money.
+	- Plan your spending carefully to maintain an effective defense.
+
+Health
+	- You start with 10 health points.
+	- Each enemy that reaches the end of the path will reduce 
+		your health by its strength value.
+	- If your health drops to zero or below, the game ends.
+
+Monster Strength
+	- Every enemy has a strength value.
+	- This value determines how much damage the enemy deals to your health if it escapes.
+	- Strength also determines how much damage the enemy deals to ropes during combat.
+	- Stronger enemies require more robust and strategic defenses to stop.
+
+Disclaimer
+	This game currently features only one level.
+
+	Tangle Defense is a prototype and early demonstration of core mechanics. 
+	Additional levels and features may be added in the future.
+"
+label_settings = SubResource("LabelSettings_ftxn0")
+
+[connection signal="pressed" from="ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

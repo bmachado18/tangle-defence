@@ -805,12 +805,14 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect7" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_right = 408.0
 offset_bottom = 680.0
 texture = ExtResource("2_kvuet")
 expand_mode = 1
 
 [node name="TextureRect6" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 464.0
 offset_right = 240.0
@@ -819,6 +821,7 @@ texture = ExtResource("3_kvuet")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 488.0
 offset_right = 216.0
@@ -826,6 +829,7 @@ offset_bottom = 584.0
 texture = ExtResource("2_dinhu")
 
 [node name="TextureRect4" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 56.0
 offset_top = 296.0
 offset_right = 216.0
@@ -842,6 +846,7 @@ offset_bottom = 168.0
 texture = ExtResource("4_dinhu")
 
 [node name="TextureRect3" type="TextureRect" parent="Panel/TextureRect3"]
+layout_mode = 0
 offset_top = 88.0
 offset_right = 72.0
 offset_bottom = 160.0
