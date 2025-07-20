@@ -176,11 +176,14 @@ func spawn_next_enemy():
 	print("spawned")
 	if current_wave_enemies_spawned < current_wave_enemy_target:
 		# Init the enemy
+		
 		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
 		enemy.progress = 0
 		
 		# add enemy to the 2D path
 		$Path2D.add_child(enemy)
+		enemy.enemy_despawn.connect(_on_enemy_despawn)
+
 		
 		current_wave_enemies_spawned += 1
 		
@@ -245,6 +248,11 @@ func place_node(pos: Vector2):
 	is_placing_node = false
 	$Panel/TextureButton.button_pressed = false
 
+func _on_enemy_despawn(enemy = null) -> void:
+	print("Enemy despawned")
+
+	if enemy:
+		enemy.queue_free()  # Optional: if not already freed
 
 
 func _draw():

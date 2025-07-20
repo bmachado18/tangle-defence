@@ -1,7 +1,6 @@
 extends PathFollow2D
 
-signal edge_collision
-signal edge_death
+signal enemy_despawn
 
 var base_speed := 0.1
 var current_speed := base_speed
@@ -22,7 +21,12 @@ func _ready() -> void:
 func _process(delta):
 	time_since_last_attack += delta
 	progress_ratio += delta * current_speed
-
+	
+	if progress_ratio >= 1.0:
+		enemy_despawn.emit()
+		queue_free()
+		
+	
 	var touched := false
 	for edge in get_tree().get_nodes_in_group("Edges"):
 		if edge.health > 0 and is_touching_edge(edge):
@@ -71,12 +75,5 @@ func apply_combat(edge):
 		call_deferred("queue_free")
 
 
-func _on_edge_collision() -> void:
-	$edge_remove.play()
-	print("Edge collision audio should be triggered")
-	
-	
-
-
-func _on_edge_death() -> void:
+func _on_enemy_despawn() -> void:
 	pass # Replace with function body.
