@@ -6,6 +6,7 @@ var edges = []
 var edge_pairs = {}
 var edge_count = 0
 
+
 # Wave system
 enum WaveState {
 	WAITING_TO_START,
@@ -26,6 +27,11 @@ var time_between_waves = 3.0
 var time_before_first_wave = 2.0
 
 var wave_timer: Timer
+
+var grid_size = 32
+
+var is_placing_node := false
+
 
 
 
@@ -199,6 +205,7 @@ func complete_current_wave():
 		wave_state = WaveState.ALL_WAVES_COMPLETE
 		wave_timer.stop()
 
+
 		remove_child(wave_timer)
 		wave_timer.queue_free()
 		
@@ -212,3 +219,39 @@ func start_next_wave():
 	
 	wave_state = WaveState.WAITING_TO_START
 	start_current_wave()
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	spawn_enemy()
+
+
+func _on_texture_button_toggled(toggled_on: bool) -> void:
+	is_placing_node = toggled_on
+	print("Node placement mode:", is_placing_node)
+
+func _unhandled_input(event):
+	if is_placing_node and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var click_pos = get_global_mouse_position()
+		var grid_size = 32  # Or whatever your tile size is
+		var grid_pos = Vector2(
+			floor(click_pos.x / grid_size) * grid_size,
+			floor(click_pos.y / grid_size) * grid_size
+		)
+		place_node(grid_pos)
+		
+func place_node(pos: Vector2):
+	var new_node = preload("res://scenes/node.tscn").instantiate()
+	new_node.position = pos
+	$Nodes.add_child(new_node)
+	print("Placed node at:", pos)
+	new_node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
+
+	is_placing_node = false
+	$Panel/TextureButton.button_pressed = false
+
+func _draw():
+	var view_size = get_viewport_rect().size
+	for x in range(0, int(view_size.x), grid_size):
+		draw_line(Vector2(x, 0), Vector2(x, view_size.y), Color(0.2, 0.2, 0.2, 0.4))
+	for y in range(0, int(view_size.y), grid_size):
+		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
+

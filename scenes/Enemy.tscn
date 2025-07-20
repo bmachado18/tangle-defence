@@ -53,10 +53,10 @@ scale = Vector2(0.85, 0.85)
 sprite_frames = SubResource("SpriteFrames_x3f71")
 frame_progress = 0.472146
 
-[node name="player_damage" type="AudioStreamPlayer" parent="."]
+[node name="player_damage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_82o86")
 
-[node name="edge_remove" type="AudioStreamPlayer" parent="."]
+[node name="edge_remove" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_1gqeq")
 
 [connection signal="edge_collision" from="." to="." method="_on_edge_collision"]

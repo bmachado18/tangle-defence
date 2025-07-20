@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://ditj46pxkyj44"]
+
+[gd_scene load_steps=8 format=3 uid="uid://ditj46pxkyj44"]
 
 [ext_resource type="PackedScene" uid="uid://dsfrokpsfah4x" path="res://scenes/node.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://ciqfp2oxnujm1" path="res://scripts/main.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://di85kihjou8as" path="res://scenes/Enemy.tscn" id="2_lnu2h"]
+
+
+[ext_resource type="Texture2D" uid="uid://b8pkshs21er7c" path="res://icon.svg" id="4_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://dbaxyke4ev42e" path="res://assets/heart-svgrepo-com.svg" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://cqqx6ms0s2w55" path="res://assets/money-svgrepo-com.svg" id="6_p57ef"]
+
 
 [sub_resource type="Curve2D" id="Curve2D_8cj0n"]
 _data = {
@@ -13,11 +20,90 @@ point_count = 6
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="Panel" type="Panel" parent="."]
+offset_left = 576.0
+offset_top = -328.0
+offset_right = 960.0
+offset_bottom = 320.0
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -60.0
+offset_right = 64.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 6
+toggle_mode = true
+texture_normal = ExtResource("4_lbhrr")
+texture_pressed = ExtResource("5_iywne")
+texture_focused = ExtResource("5_iywne")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = 56.0
+offset_right = -24.0
+offset_bottom = 96.0
+grow_horizontal = 2
+texture = ExtResource("5_iywne")
+expand_mode = 1
+
+[node name="HealthLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 16.0
+offset_top = 56.0
+offset_right = 56.0
+offset_bottom = 79.0
+grow_horizontal = 2
+scale = Vector2(1.49, 1.49)
+text = "5 HP"
+
+[node name="TextureRect2" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = 128.0
+offset_right = -32.0
+offset_bottom = 168.0
+grow_horizontal = 2
+scale = Vector2(1.39, 1.39)
+texture = ExtResource("6_p57ef")
+expand_mode = 1
+
+[node name="MoneyLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 16.0
+offset_top = 144.0
+offset_right = 56.0
+offset_bottom = 167.0
+grow_horizontal = 2
+scale = Vector2(1.49, 1.49)
+text = "$1000"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(192, 0)
 offset = Vector2(0.62, 0.23)
-zoom = Vector2(1.019, 1)
+zoom = Vector2(0.749, 1)
 
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2(-154, 60)
@@ -58,3 +144,7 @@ position = Vector2(-524, -6)
 
 [node name="Node9" parent="Nodes" instance=ExtResource("1_uwrxv")]
 position = Vector2(528, 0)
+
+[connection signal="toggled" from="Panel/TextureButton" to="." method="_on_texture_button_toggled"]
+
+

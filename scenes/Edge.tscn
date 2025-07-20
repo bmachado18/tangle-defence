@@ -17,10 +17,10 @@ offset_bottom = 23.0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="edge_break" type="AudioStreamPlayer" parent="."]
+[node name="edge_break" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_6c7p0")
 
-[node name="edge_create" type="AudioStreamPlayer" parent="."]
+[node name="edge_create" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_omghk")
 
 [connection signal="edge_break" from="." to="." method="_on_edge_break"]
