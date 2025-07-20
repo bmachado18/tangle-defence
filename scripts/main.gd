@@ -52,6 +52,9 @@ func _ready():
 	$Panel/HealthLabel.text = str(playerHealth)
 	$Panel/MoneyLabel.text = str(playerMoney)
 	
+	$Panel/TowerPriceLabel.text = str(towerCost)
+	$Panel/EdgePriceLabel.text = str(ropeCost)
+	
 	
 func setup_node_connections():
 	for node in $Nodes.get_children():

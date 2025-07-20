@@ -34,7 +34,7 @@ func update_position():
 		health_label.global_position = midpoint + Vector2(0, 10)
 
 func update_strength():
-	strength = max(1, 10 - cross_count * 3)
+	strength = max(1, 5 + cross_count * 3)
 	if health == 0:
 		health = strength
 
