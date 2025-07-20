@@ -14,7 +14,6 @@ var time_since_last_attack := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$player_damage.play()
 	sprite.play()
 
 
@@ -29,7 +28,6 @@ func _process(delta):
 			touched = true
 			
 			if time_since_last_attack >= attack_cooldown:
-				$edge_remove.play()
 				apply_combat(edge)
 				time_since_last_attack = 0.0
 				break  # Optional: one edge per tick
@@ -47,7 +45,10 @@ func is_touching_edge(edge) -> bool:
 	
 func apply_combat(edge):
 	print("Combat triggered: enemy health =", health, ", edge health =", edge.health)
-	
+	$player_damage.play()
+	var player_dmg = $player_damage
+	player_dmg.stream = preload("res://assets/audio/hurt.wav")
+	player_dmg.play()
 	
 	edge.health -= strength
 	health -= edge.strength
