@@ -1,6 +1,7 @@
 extends PathFollow2D
 
 signal enemy_despawn
+signal enemy_death
 
 var base_speed := 0.1
 var current_speed := base_speed
@@ -23,7 +24,7 @@ func _process(delta):
 	progress_ratio += delta * current_speed
 	
 	if progress_ratio >= 1.0:
-		enemy_despawn.emit()
+		enemy_despawn.emit(self)
 		queue_free()
 		
 	
@@ -64,6 +65,7 @@ func apply_combat(edge):
 	if edge.health <= 0:
 		print("Edge destroyed")
 		
+		
 		edge.queue_free()
 		
 		if is_instance_valid(edge):
@@ -71,5 +73,5 @@ func apply_combat(edge):
 
 	if health <= 0:
 		print("Enemy destroyed")
-		
+		enemy_death.emit(self)
 		call_deferred("queue_free")
