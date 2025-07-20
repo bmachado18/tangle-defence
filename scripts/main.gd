@@ -33,8 +33,6 @@ var grid_size = 32
 var is_placing_node := false
 
 
-
-
 func _ready():
 	setup_node_connections()
 	setup_wave_system()
@@ -55,18 +53,19 @@ func setup_wave_system():
 	wave_timer.start()
 
 func _on_node_selected(node):
-	if selected_node == null:
-		print("Node: %s has been selected" % node.get_parent().name)
-		selected_node = node
-		
-	else:
-		if selected_node != node:
-			if not edge_exists(selected_node, node):
-				print("Adding edge between: %s and %s" % [selected_node.get_parent().name, node.get_parent().name])
-				create_edge(selected_node, node)
-			else:
-				print("Edge already exists between %s and %s" % [selected_node.get_parent().name, node.get_parent().name])
-		selected_node = null
+	if not is_placing_node:
+		if selected_node == null:
+			print("Node: %s has been selected" % node.get_parent().name)
+			selected_node = node
+			
+		else:
+			if selected_node != node:
+				if not edge_exists(selected_node, node):
+					print("Adding edge between: %s and %s" % [selected_node.get_parent().name, node.get_parent().name])
+					create_edge(selected_node, node)
+				else:
+					print("Edge already exists between %s and %s" % [selected_node.get_parent().name, node.get_parent().name])
+			selected_node = null
 
 func get_edge_key(a, b) -> String:
 	var names = [a.get_parent().name, b.get_parent().name]
@@ -105,10 +104,6 @@ func check_crosses():
 	for edge in edges:
 		edge.update_strength()
 		edge.update_position()  # Update label position too
-
-func _on_edge_break():
-	print("signal recieved")
-	pass
 
 func do_edges_cross(e1, e2):
 	var a1 = e1.from_node.global_position
@@ -162,6 +157,7 @@ func spawn_next_enemy():
 		# add enemy to the 2D path
 		$Path2D.add_child(enemy)
 		enemy.enemy_despawn.connect(_on_enemy_despawn)
+		enemy.edge_destroyed.connect(_on_edge_destroyed)
 
 		
 		current_wave_enemies_spawned += 1
@@ -205,11 +201,13 @@ func _on_texture_button_toggled(toggled_on: bool) -> void:
 func _unhandled_input(event):
 	if is_placing_node and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		var click_pos = $Camera2D.get_global_mouse_position()
+		get_viewport().set_input_as_handled()
 		var grid_pos = Vector2(
 			floor(click_pos.x / grid_size) * grid_size + grid_size / 2,
 			floor(click_pos.y / grid_size) * grid_size + grid_size / 2
 		)
 		place_node(grid_pos)
+		get_viewport().set_input_as_handled()
 		
 func place_node(pos: Vector2):
 	var new_node = preload("res://scenes/node.tscn").instantiate()
@@ -217,6 +215,7 @@ func place_node(pos: Vector2):
 	new_node.position = pos
 	
 	$Nodes.add_child(new_node)
+	new_node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
 	
 	#reset the button
 	is_placing_node = false
@@ -231,7 +230,16 @@ func _on_enemy_despawn(enemy = null) -> void:
 	if enemy:
 		enemy.queue_free()  # Optional: if not already freed
 
-
+func _on_edge_destroyed(edge):
+	if edge in edges:
+		edges.erase(edge)
+		var key = get_edge_key(edge.from_node, edge.to_node)
+		edge_pairs.erase(key)
+		edge_count -= 1
+		print("Edge removed from lists:", key)
+		
+#func _on_edge_break():
+#	pass
 func _draw():
 	# Get the visible area of the current node (usually the screen size)
 	var rect = get_viewport().get_visible_rect()
@@ -244,4 +252,3 @@ func _draw():
 	# Draw horizontal lines  
 	for y in range(0, int(view_size.y), grid_size):
 		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
-

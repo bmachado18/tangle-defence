@@ -1,6 +1,7 @@
 extends PathFollow2D
 
 signal enemy_despawn
+signal edge_destroyed
 
 var base_speed := 0.1
 var current_speed := base_speed
@@ -9,6 +10,7 @@ var strength = 2
 
 var attack_cooldown := 0.5
 var time_since_last_attack := 0.0
+
 
 @onready var sprite = $AnimatedSprite2D
 
@@ -63,7 +65,8 @@ func apply_combat(edge):
 
 	if edge.health <= 0:
 		print("Edge destroyed")
-		
+		edge_destroyed.emit(edge)
+		await get_tree().process_frame
 		edge.queue_free()
 		
 		if is_instance_valid(edge):

@@ -20,7 +20,6 @@ texture = ExtResource("2_dondh")
 region_enabled = true
 region_rect = Rect2(104, 8, 32, 48)
 script = ExtResource("3_76phl")
-rect = Rect2(0, 0, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(5, 5)

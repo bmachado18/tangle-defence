@@ -6,8 +6,6 @@ var cross_count = 0
 var strength = 0
 var health = 0
 
-signal edge_break
-
 @onready var strength_label = $StrengthLabel
 @onready var health_label = $HealthLabel
 
@@ -76,7 +74,3 @@ func _draw():
 			color, 
 			2.0
 		)
-
-
-func _on_edge_break() -> void:
-	emit_signal("edge_break", self)
