@@ -155,11 +155,14 @@ func start_current_wave():
 func spawn_next_enemy():
 	if current_wave_enemies_spawned < current_wave_enemy_target:
 		# Init the enemy
+		
 		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
 		enemy.progress = 0
 		
 		# add enemy to the 2D path
 		$Path2D.add_child(enemy)
+		enemy.enemy_despawn.connect(_on_enemy_despawn)
+
 		
 		current_wave_enemies_spawned += 1
 		
@@ -217,5 +220,28 @@ func place_node(pos: Vector2):
 	
 	#reset the button
 	is_placing_node = false
+
 	$Panel/TextureButton.button_pressed = is_placing_node
 	$Grid.visible = is_placing_node
+	$Panel/TextureButton.button_pressed = false
+
+func _on_enemy_despawn(enemy = null) -> void:
+	print("Enemy despawned")
+
+	if enemy:
+		enemy.queue_free()  # Optional: if not already freed
+
+
+func _draw():
+	# Get the visible area of the current node (usually the screen size)
+	var rect = get_viewport().get_visible_rect()
+	var view_size = rect.size
+	
+	# Draw vertical lines
+	for x in range(0, int(view_size.x), grid_size):
+		draw_line(Vector2(x, 0), Vector2(x, view_size.y), Color(0.2, 0.2, 0.2, 0.4))
+	
+	# Draw horizontal lines  
+	for y in range(0, int(view_size.y), grid_size):
+		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
+
