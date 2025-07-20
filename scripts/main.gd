@@ -27,7 +27,7 @@ enum WaveState {
 
 var wave_state = WaveState.WAITING_TO_START
 var current_wave = 1
-var wave_sizes = [1,2]
+var wave_sizes = [5, 5]
 var current_wave_enemies_spawned = 0
 var current_wave_enemy_target = 0
 
@@ -45,6 +45,8 @@ var is_placing_node := false
 
 
 func _ready():
+	$Music.play()
+	
 	setup_node_connections()
 	setup_wave_system()
 	Global.score = 0 
@@ -98,6 +100,8 @@ func create_edge(a, b):
 		print("player does not have enough money to place rope")
 		return
 	
+	
+	$edgeCreateAudio.play()
 	playerMoney -= ropeCost
 	update_money_label()
 	
@@ -154,6 +158,7 @@ func _on_wave_timer_timeout() -> void:
 			return
 
 func start_current_wave():
+	$wavespawn.play()
 	if wave_sizes.size() == 0:
 		wave_state = WaveState.ALL_WAVES_COMPLETE
 		return

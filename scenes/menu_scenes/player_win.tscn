@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://s5o4g5y82osh"]
+[gd_scene load_steps=12 format=3 uid="uid://b7ervn1xv5vw3"]
 
 [ext_resource type="Script" uid="uid://d15arr04lvkwr" path="res://scripts/player_win.gd" id="1_qh8xl"]
 [ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="2_cddbr"]
-[ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="3_477u8"]
+[ext_resource type="Theme" uid="uid://da41v4hkpmqlf" path="res://assets/default_theme.tres" id="3_477u8"]
 [ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="4_wsdpp"]
 [ext_resource type="Texture2D" uid="uid://v81yji2bxhg7" path="res://assets/ui/Background.jpg" id="5_bsrgi"]
 [ext_resource type="Texture2D" uid="uid://rmsnherw65oj" path="res://assets/ui/parallax-1.png" id="6_0cltt"]
 [ext_resource type="Texture2D" uid="uid://b8mry67mq4oyh" path="res://assets/ui/parallax-2.png" id="7_rbluk"]
 [ext_resource type="Texture2D" uid="uid://fhnfdmra5vaj" path="res://assets/ui/parallax-3.png" id="8_ac3no"]
+[ext_resource type="AudioStream" uid="uid://8h5pmek4y5cc" path="res://assets/audio/Victory.wav" id="9_cddbr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q7ybu"]
 font = ExtResource("2_cddbr")
@@ -27,6 +28,7 @@ grow_vertical = 2
 script = ExtResource("1_qh8xl")
 
 [node name="GameOverLabel" type="Label" parent="."]
+layout_mode = 0
 offset_top = 149.0
 offset_right = 1920.0
 offset_bottom = 554.0
@@ -36,6 +38,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ButtonNextRound" type="Button" parent="."]
+layout_mode = 0
 offset_left = 855.0
 offset_top = 593.0
 offset_right = 1166.0
@@ -44,6 +47,7 @@ theme = ExtResource("3_477u8")
 text = "Try again?"
 
 [node name="ButtonMainMenu" type="Button" parent="."]
+layout_mode = 0
 offset_left = 855.0
 offset_top = 751.0
 offset_right = 1166.0
@@ -55,6 +59,7 @@ text = "Main Menu"
 stream = ExtResource("4_wsdpp")
 
 [node name="Score" type="Label" parent="."]
+layout_mode = 0
 offset_left = 855.0
 offset_top = 460.0
 offset_right = 1166.0
@@ -108,6 +113,10 @@ autoscroll = Vector2(30, 0)
 [node name="HighParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D3"]
 rotation = 3.14159
 texture = ExtResource("8_ac3no")
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_cddbr")
+volume_db = -3.15
 
 [connection signal="pressed" from="ButtonNextRound" to="." method="_on_button_next_round_pressed"]
 [connection signal="pressed" from="ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
