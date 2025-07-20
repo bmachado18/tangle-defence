@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbet2oex550uw"]
+
+[ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="1_ftxn0"]
+[ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="2_8mnmq"]
+[ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="3_ampx8"]
+[ext_resource type="Texture2D" uid="uid://v81yji2bxhg7" path="res://assets/ui/Background.jpg" id="4_yhswm"]
+[ext_resource type="Texture2D" uid="uid://rmsnherw65oj" path="res://assets/ui/parallax-1.png" id="5_pgvtn"]
+[ext_resource type="Texture2D" uid="uid://b8mry67mq4oyh" path="res://assets/ui/parallax-2.png" id="6_2luh7"]
+[ext_resource type="Texture2D" uid="uid://fhnfdmra5vaj" path="res://assets/ui/parallax-3.png" id="7_tue3y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gm603"]
+font = ExtResource("3_ampx8")
+font_size = 64
+
+[node name="InfoScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonMainMenu" type="Button" parent="."]
+offset_left = 856.0
+offset_top = 968.0
+offset_right = 1167.0
+offset_bottom = 1048.0
+theme = ExtResource("1_ftxn0")
+text = "Main Menu"
+
+[node name="button_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8mnmq")
+
+[node name="Score" type="Label" parent="."]
+offset_left = 648.0
+offset_top = 64.0
+offset_right = 1396.0
+offset_bottom = 144.0
+text = "How to play the game"
+label_settings = SubResource("LabelSettings_gm603")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Node2D"]
+
+[node name="Parallax2D-background" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="background" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D-background"]
+texture = ExtResource("4_yhswm")
+
+[node name="Parallax2D" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+visible = false
+rotation = -6.28319
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="LowestParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D"]
+texture = ExtResource("5_pgvtn")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+visible = false
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(20, 0)
+
+[node name="MidParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D2"]
+rotation = 3.14159
+texture = ExtResource("6_2luh7")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(30, 0)
+
+[node name="HighParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D3"]
+rotation = 3.14159
+texture = ExtResource("7_tue3y")

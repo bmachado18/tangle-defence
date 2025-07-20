@@ -1,5 +1,7 @@
 extends Control
 
+func _ready():
+	$Score.text = "Score: " + str(Global.score)
 
 func _on_button_main_menu_pressed() -> void:
 	$button_click.play()

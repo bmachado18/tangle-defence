@@ -44,7 +44,7 @@ theme = ExtResource("4_1r6f3")
 text = "Quit
 "
 
-[node name="button_options" type="Button" parent="."]
+[node name="button_info" type="Button" parent="."]
 layout_mode = 2
 offset_left = 728.0
 offset_top = 504.0
@@ -103,5 +103,5 @@ autoscroll = Vector2(30, 0)
 texture = ExtResource("7_irokf")
 
 [connection signal="pressed" from="button_quit" to="." method="_on_button_quit_pressed"]
-[connection signal="pressed" from="button_options" to="." method="_on_button_options_pressed"]
+[connection signal="pressed" from="button_info" to="." method="_on_button_info_pressed"]
 [connection signal="pressed" from="button_play" to="." method="_on_button_play_pressed"]

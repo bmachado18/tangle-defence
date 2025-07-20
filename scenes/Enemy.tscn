@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://di85kihjou8as"]
+[gd_scene load_steps=14 format=3 uid="uid://di85kihjou8as"]
 
 [ext_resource type="Script" uid="uid://73mrgvecfhwx" path="res://scripts/Enemy.gd" id="1_ly5gv"]
 [ext_resource type="Texture2D" uid="uid://dai8sj6bexjd6" path="res://assets/tiles/Character-and-Zombie.png" id="2_ft8do"]
+[ext_resource type="AudioStream" uid="uid://vebvm6j6hh7u" path="res://assets/audio/pickupCoin.wav" id="5_5wwv6"]
 [ext_resource type="AudioStream" uid="uid://yqdj531wuhex" path="res://assets/audio/hurt.wav" id="10_82o86"]
 [ext_resource type="AudioStream" uid="uid://bwktj14m0pke8" path="res://assets/audio/15_human_dash_1.wav" id="11_1gqeq"]
 
@@ -75,6 +76,9 @@ script = ExtResource("1_ly5gv")
 scale = Vector2(2.6, 2.6)
 sprite_frames = SubResource("SpriteFrames_isvm2")
 frame_progress = 0.812472
+
+[node name="PickupCoin" type="AudioStreamPlayer" parent="AnimatedSprite2D"]
+stream = ExtResource("5_5wwv6")
 
 [node name="player_damage" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_82o86")

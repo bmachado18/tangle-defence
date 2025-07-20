@@ -1,13 +1,14 @@
 extends Node2D
 
-var playerHealth = 1
+
+
+var playerHealth = 10
 var playerMoney = 100
 
 var ropeCost = 5
 var towerCost = 10
 
 var enemyRefund = 5
-
 
 
 var selected_node = null
@@ -46,6 +47,7 @@ var is_placing_node := false
 func _ready():
 	setup_node_connections()
 	setup_wave_system()
+	Global.score = 0 
 	
 	$Panel/HealthLabel.text = str(playerHealth)
 	$Panel/MoneyLabel.text = str(playerMoney)
@@ -266,6 +268,7 @@ func _on_enemy_despawn(enemy):
 
 	enemy.queue_free()
 	
+	
 	active_enemies -= 1
 	check_if_round_complete()
 
@@ -277,6 +280,7 @@ func check_if_round_complete():
 
 
 func _go_to_game_over():
+	
 	get_tree().change_scene_to_file("res://scenes/menu_scenes/GameOver.tscn")
 	
 func _go_to_next_round():
@@ -291,9 +295,10 @@ func update_money_label():
 func _on_enemy_death(enemy):
 	print("Enemy killed by edge — refunding money")
 	playerMoney += enemyRefund
+	
 	update_money_label()
 	
-	
+	Global.score += 1
 	active_enemies -= 1
 	check_if_round_complete()
 

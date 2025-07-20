@@ -13,3 +13,7 @@ func _on_button_options_pressed() -> void:
 func _on_button_quit_pressed() -> void:
 	$button_click.play()
 	get_tree().quit()
+
+
+func _on_button_info_pressed() -> void:
+	pass # Replace with function body.
