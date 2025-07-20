@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsfrokpsfah4x"]
+[gd_scene load_steps=6 format=3 uid="uid://dsfrokpsfah4x"]
 
 [ext_resource type="Script" uid="uid://dkpfn2demaklb" path="res://scripts/Node.gd" id="1_ignic"]
 [ext_resource type="Texture2D" uid="uid://cq1ib2putt7h4" path="res://assets/tiles/Towers.png" id="2_dondh"]
+[ext_resource type="Script" uid="uid://bw25sujk03v84" path="res://scripts/sprite_2d.gd" id="3_76phl"]
 [ext_resource type="AudioStream" uid="uid://c8fed7v7qmqbd" path="res://assets/audio/edge_create.wav" id="3_dondh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ignic"]
@@ -18,6 +19,8 @@ scale = Vector2(15, 15)
 texture = ExtResource("2_dondh")
 region_enabled = true
 region_rect = Rect2(104, 8, 32, 48)
+script = ExtResource("3_76phl")
+rect = Rect2(0, 0, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(5, 5)
