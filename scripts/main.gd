@@ -34,7 +34,7 @@ var current_wave_enemy_target = 0
 # Timing configuration
 var time_between_enemies = 0.5
 var time_between_waves = 3.0
-var time_before_first_wave = 2.0
+var time_before_first_wave = 5.0
 var active_enemies := 0
 
 var wave_timer: Timer
