@@ -6,8 +6,8 @@ signal enemy_death
 
 var base_speed := 0.1
 var current_speed := base_speed
-var health = 5
-var strength = 2
+var health = 10
+var strength = 3
 
 var attack_cooldown := 0.5
 var time_since_last_attack := 0.0

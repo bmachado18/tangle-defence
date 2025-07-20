@@ -3,6 +3,8 @@ extends Node2D
 var from_node
 var to_node
 var cross_count = 0
+var base_strength = 3
+var base_health = 6
 var strength = 0
 var health = 0
 
@@ -34,9 +36,8 @@ func update_position():
 		health_label.global_position = midpoint + Vector2(0, 10)
 
 func update_strength():
-	strength = max(1, 5 + cross_count * 3)
-	if health == 0:
-		health = strength
+	strength = max(1, base_strength + cross_count * 3)
+	health = base_health
 
 	update_labels()
 			

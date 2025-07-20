@@ -27,7 +27,7 @@ enum WaveState {
 
 var wave_state = WaveState.WAITING_TO_START
 var current_wave = 1
-var wave_sizes = [5, 5]
+var wave_sizes = [1, 3, 5, 7, 15]
 var current_wave_enemies_spawned = 0
 var current_wave_enemy_target = 0
 
