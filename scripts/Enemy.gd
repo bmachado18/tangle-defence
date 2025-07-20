@@ -73,7 +73,3 @@ func apply_combat(edge):
 		print("Enemy destroyed")
 		
 		call_deferred("queue_free")
-
-
-func _on_enemy_despawn() -> void:
-	pass # Replace with function body.

@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bswe25340gm8u"]
+[gd_scene load_steps=9 format=3 uid="uid://bswe25340gm8u"]
 
 [ext_resource type="Script" uid="uid://k82w2r5hxaqo" path="res://scripts/menu/main_menu.gd" id="1_w4w6c"]
 [ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="2_5glal"]
 [ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="3_a2jmn"]
 [ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="4_1r6f3"]
+[ext_resource type="Texture2D" uid="uid://rmsnherw65oj" path="res://assets/ui/parallax-1.png" id="5_1r6f3"]
+[ext_resource type="Texture2D" uid="uid://b8mry67mq4oyh" path="res://assets/ui/parallax-2.png" id="6_r26rp"]
+[ext_resource type="Texture2D" uid="uid://fhnfdmra5vaj" path="res://assets/ui/parallax-3.png" id="7_irokf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r26rp"]
 font = ExtResource("3_a2jmn")
@@ -57,6 +60,37 @@ offset_right = 1192.0
 offset_bottom = 456.0
 theme = ExtResource("4_1r6f3")
 text = "Play"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Node2D"]
+
+[node name="Parallax2D" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="LowestParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D"]
+texture = ExtResource("5_1r6f3")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(20, 0)
+
+[node name="MidParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D2"]
+texture = ExtResource("6_r26rp")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Node2D/ParallaxBackground"]
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(968, 552)
+repeat_size = Vector2(1920, 0)
+autoscroll = Vector2(30, 0)
+
+[node name="HighParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D3"]
+texture = ExtResource("7_irokf")
 
 [connection signal="pressed" from="button_quit" to="." method="_on_button_quit_pressed"]
 [connection signal="pressed" from="button_options" to="." method="_on_button_options_pressed"]
