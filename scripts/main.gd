@@ -83,59 +83,9 @@ func do_edges_cross(e1, e2):
 	var b2 = e2.to_node.global_position
 	return Geometry2D.segment_intersects_segment(a1, a2, b1, b2)
 	
-func start_wave():
-	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
-	
-	 
-	
-	$Path2D.add_child(enemy)
-
-
-func prepare_wave_batch():
-	# Clear any existing batch
-	enemy_batch.clear()
-	
-	# Create individual enemy instances
-	for i in range(enemy_max):
-		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
-		enemy_batch.append(enemy)
-	
-	print("Prepared batch of %d enemies" % enemy_batch.size())
-		
-func prepare_enemy_batch(enemy):
-	$Path2D.add_child(enemy)
-	print("spawned enemy %s" % enemy_count)
-	enemy_count += 1
-	
-func spawn_enemy_batch():
-	# Spawn all enemies from the batch
-	for enemy in enemy_batch:
-		if enemy != null:
-			# Set initial progress
-			enemy.progress = 0
-			# Add to Path2D
-			$Path2D.add_child(enemy)
-			enemy_count += 1
-			print("Spawned enemy #%d" % enemy_count)
-	
-	# Clear the batch after spawning
-	enemy_batch.clear()
-
-func spawn_enemy():
-	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
-	# Start at beginning up path
-	enemy.progress = 0
-	
- 	#add directly to path2d
-	$Path2D.add_child(enemy)
-
-	enemy_count += 1
-	
-	# Add the enemy directly to Path2D, not to PathFollow2D
-	#$Path2D.get_child(0).add_child(enemy)
-	print("Spawned enemy #", enemy_count)
-
-
+#func start_wave():
+	#var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+	#$Path2D.add_child(enemy)
 
 
 # creates a batch of enemies after timer amount of seconds
