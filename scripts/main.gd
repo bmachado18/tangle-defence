@@ -1,9 +1,32 @@
 extends Node2D
+
+
 var selected_node = null
 var edges = []
-var enemy_count = 0
 var edge_pairs = {}
 var edge_count = 0
+
+
+# Wave system
+enum WaveState {
+	WAITING_TO_START,
+	SPAWNING_ENEMIES,
+	WAVE_COMPLETE,
+	ALL_WAVES_COMPLETE
+}
+
+var wave_state = WaveState.WAITING_TO_START
+var current_wave = 1
+var wave_sizes = [1,2,3,4]
+var current_wave_enemies_spawned = 0
+var current_wave_enemy_target = 0
+
+# Timing configuration
+var time_between_enemies = 0.5
+var time_between_waves = 3.0
+var time_before_first_wave = 2.0
+
+var wave_timer: Timer
 
 var grid_size = 32
 
@@ -11,11 +34,29 @@ var is_placing_node := false
 
 
 
+
 func _ready():
+	setup_node_connections()
+	setup_wave_system()
+	
+	
+func setup_node_connections():
 	for node in $Nodes.get_children():
 		print(node.get_child(0).name)
 		node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
-		
+
+func setup_wave_system():
+	# configure and create a single timer for all wave operations
+	wave_timer = Timer.new()
+	add_child(wave_timer)
+	wave_timer.timeout.connect(_on_wave_timer_timeout)
+	wave_timer.one_shot = true
+	
+	print("Starting wave system in %.1f seconds" % time_before_first_wave)
+	
+	wave_timer.wait_time = time_before_first_wave
+	wave_timer.start()
+
 func _on_node_selected(node):
 	if selected_node == null:
 		print("Node: %s has been selected" % node.get_parent().name)
@@ -68,6 +109,10 @@ func check_crosses():
 		edge.update_strength()
 		edge.update_position()  # Update label position too
 
+func _on_edge_break():
+	print("signal recieved")
+	pass
+
 func do_edges_cross(e1, e2):
 	var a1 = e1.from_node.global_position
 	var b1 = e2.from_node.global_position
@@ -75,23 +120,105 @@ func do_edges_cross(e1, e2):
 	var b2 = e2.to_node.global_position
 	return Geometry2D.segment_intersects_segment(a1, a2, b1, b2)
 	
-func start_wave():
-	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
-	$Path2D.add_child(enemy)
 
-func spawn_enemy():
-	var enemy = preload("res://scenes/Enemy.tscn").instantiate()
-	# Start at beginning up path
-	enemy.progress = 0
+func _on_wave_timer_timeout() -> void:
+	print($Path2D.get_children())
+	print("=== TIMER TIMEOUT DEBUG ===")
+	print("Current state: ", wave_state)
+	print("Current wave: ", current_wave) 
+	print("Wave sizes remaining: ", wave_sizes)
+	print("Timer is_stopped: ", wave_timer.is_stopped())
+	print("==========================")
 	
- 	#add directly to path2d
-	$Path2D.add_child(enemy)
+	match wave_state:
+		WaveState.WAITING_TO_START:
+			print("Starting wave...")
+			start_current_wave()
+		#
+		WaveState.SPAWNING_ENEMIES:
+			print("Spawning enemy...")
+			spawn_next_enemy()
+		
+		WaveState.WAVE_COMPLETE:
+			print("Wave complete, starting next...")
+			start_next_wave()
+		
+		WaveState.ALL_WAVES_COMPLETE:
+			print("ERROR: Timer fired when all waves should be complete!")
+			return
 
-	enemy_count += 1
+func start_current_wave():
+	if wave_sizes.size() == 0:
+		print("ERROR: Trying to start wave but no waves left!")
+		wave_state = WaveState.ALL_WAVES_COMPLETE
+		return
+		
+	print(" ----- ** starting wave %d ** ----" % current_wave)
 	
-	# Add the enemy directly to Path2D, not to PathFollow2D
-	#$Path2D.get_child(0).add_child(enemy)
-	print("Spawned enemy #", enemy_count)
+	# Get the current wave size and immediately remove it from the array
+	var enemies_to_spawn = wave_sizes[0]
+	wave_sizes.remove_at(0)
+	
+	print("Enemies to spawn %d" % enemies_to_spawn)
+	print("Remaining waves after this: ", wave_sizes)
+	
+	# Store this wave's enemy count for spawning
+	current_wave_enemies_spawned = 0
+	current_wave_enemy_target = enemies_to_spawn
+	wave_state = WaveState.SPAWNING_ENEMIES
+	
+	print("spawning next enemy")
+	spawn_next_enemy()
+
+	
+	
+func spawn_next_enemy():
+	if current_wave_enemies_spawned < current_wave_enemy_target:
+		# Init the enemy
+		var enemy = preload("res://scenes/Enemy.tscn").instantiate()
+		enemy.progress = 0
+		
+		# add enemy to the 2D path
+		$Path2D.add_child(enemy)
+		
+		current_wave_enemies_spawned += 1
+		
+		if current_wave_enemies_spawned < current_wave_enemy_target:
+			# schedule the next enemy
+			wave_timer.wait_time = time_between_enemies
+			wave_timer.start()
+		else:
+			complete_current_wave()
+
+func complete_current_wave():
+	print("--- *** wave %d complete *** ---" % current_wave)
+	print("Remaining waves: ", wave_sizes)
+	
+	wave_state = WaveState.WAVE_COMPLETE
+	
+	if wave_sizes.size() > 0:
+		print("Next wave is in %.1f seconds..." % time_between_waves)
+		wave_timer.wait_time = time_between_waves
+		wave_timer.start()
+	else:
+		print("ALL WAVES COMPLETE WOOOO")
+		wave_state = WaveState.ALL_WAVES_COMPLETE
+		wave_timer.stop()
+
+
+		remove_child(wave_timer)
+		wave_timer.queue_free()
+		
+
+func start_next_wave():
+	print("C")
+	print("starting the next wave")
+	current_wave += 1
+	
+	print(wave_sizes)
+	
+	wave_state = WaveState.WAITING_TO_START
+	start_current_wave()
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()
@@ -127,3 +254,4 @@ func _draw():
 		draw_line(Vector2(x, 0), Vector2(x, view_size.y), Color(0.2, 0.2, 0.2, 0.4))
 	for y in range(0, int(view_size.y), grid_size):
 		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
+
