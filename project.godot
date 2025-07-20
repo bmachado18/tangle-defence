@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="tangle-defence"
-run/main_scene="uid://ditj46pxkyj44"
+run/main_scene="uid://bswe25340gm8u"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
