@@ -2,8 +2,8 @@ extends Node2D
 
 
 
-var playerHealth = 10
-var playerMoney = 100
+var playerHealth = 20
+var playerMoney = 75
 
 var ropeCost = 5
 var towerCost = 10
@@ -27,7 +27,7 @@ enum WaveState {
 
 var wave_state = WaveState.WAITING_TO_START
 var current_wave = 1
-var wave_sizes = [1, 3, 5, 7, 15]
+var wave_sizes = [1, 2, 4, 5, 7]
 var current_wave_enemies_spawned = 0
 var current_wave_enemy_target = 0
 

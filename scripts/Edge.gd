@@ -3,8 +3,8 @@ extends Node2D
 var from_node
 var to_node
 var cross_count = 0
-var base_strength = 3
-var base_health = 6
+var base_strength = 5
+var base_health = 8
 var strength = 0
 var health = 0
 

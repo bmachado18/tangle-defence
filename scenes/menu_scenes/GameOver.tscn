@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://be5subym6oda8"]
+[gd_scene load_steps=12 format=3 uid="uid://buqxn24eufv6y"]
 
 [ext_resource type="Script" uid="uid://ce1d5lgnq2ciu" path="res://scripts/game_over.gd" id="1_yv6cs"]
 [ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="2_8fy5p"]
