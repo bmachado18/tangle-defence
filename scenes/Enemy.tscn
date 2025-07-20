@@ -45,6 +45,7 @@ animations = [{
 }]
 
 [node name="Enemy" type="PathFollow2D"]
+loop = false
 script = ExtResource("1_ly5gv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
