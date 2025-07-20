@@ -66,6 +66,7 @@ func apply_combat(edge):
 
 	if edge.health <= 0:
 		print("Edge destroyed")
+		$edge_remove.play()
 		edge_destroyed.emit(edge)
 		await get_tree().process_frame
 

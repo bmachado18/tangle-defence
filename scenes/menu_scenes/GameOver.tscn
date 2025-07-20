@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://be5subym6oda8"]
+[gd_scene load_steps=12 format=3 uid="uid://buqxn24eufv6y"]
 
 [ext_resource type="Script" uid="uid://ce1d5lgnq2ciu" path="res://scripts/game_over.gd" id="1_yv6cs"]
 [ext_resource type="FontFile" uid="uid://bemrttiqrgs7x" path="res://assets/ui/fonts/akashi.ttf" id="2_8fy5p"]
-[ext_resource type="Theme" uid="uid://d35wy3gqpn5rq" path="res://assets/default_theme.tres" id="3_1erew"]
+[ext_resource type="Theme" uid="uid://da41v4hkpmqlf" path="res://assets/default_theme.tres" id="3_1erew"]
 [ext_resource type="AudioStream" uid="uid://rvxosxhhgiyp" path="res://assets/audio/click.wav" id="4_8fy5p"]
 [ext_resource type="Texture2D" uid="uid://v81yji2bxhg7" path="res://assets/ui/Background.jpg" id="5_yufox"]
 [ext_resource type="Texture2D" uid="uid://rmsnherw65oj" path="res://assets/ui/parallax-1.png" id="6_jxddg"]
 [ext_resource type="Texture2D" uid="uid://b8mry67mq4oyh" path="res://assets/ui/parallax-2.png" id="7_am4xy"]
 [ext_resource type="Texture2D" uid="uid://fhnfdmra5vaj" path="res://assets/ui/parallax-3.png" id="8_h6o1f"]
+[ext_resource type="AudioStream" uid="uid://baovop5xupki" path="res://assets/audio/Game_Over.wav" id="9_jxddg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i3hib"]
 font = ExtResource("2_8fy5p")
@@ -110,6 +111,10 @@ autoscroll = Vector2(30, 0)
 [node name="HighParallax" type="Sprite2D" parent="Node2D/ParallaxBackground/Parallax2D3"]
 rotation = 3.14159
 texture = ExtResource("8_h6o1f")
+
+[node name="GameOverPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_jxddg")
+volume_db = -24.59
 
 [connection signal="pressed" from="ButtonTryAgain" to="." method="_on_button_try_again_pressed"]
 [connection signal="pressed" from="ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://ditj46pxkyj44"]
+[gd_scene load_steps=24 format=4 uid="uid://ditj46pxkyj44"]
 
 [ext_resource type="Script" uid="uid://ciqfp2oxnujm1" path="res://scripts/main.gd" id="1_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://ddwxs3fcbnm5j" path="res://assets/ui/rope.png" id="2_dinhu"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://b15cwlbr58baq" path="res://assets/tiles/TX Tileset Grass.png" id="7_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://g57b42wkfx6w" path="res://assets/tiles/TX Plant.png" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://bo1cpe7ekrm1q" path="res://grid_map/Grid.tscn" id="9_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://caeaiqw4pqfi1" path="res://assets/audio/music.wav" id="14_trtic"]
+[ext_resource type="AudioStream" uid="uid://c8fed7v7qmqbd" path="res://assets/audio/edge_create.wav" id="15_ir15t"]
+[ext_resource type="AudioStream" uid="uid://bk2miqpbcon26" path="res://assets/audio/minecraft-villager-289282.mp3" id="16_ca42v"]
 
 [sub_resource type="Curve2D" id="Curve2D_8cj0n"]
 _data = {
@@ -805,12 +808,14 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect7" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_right = 408.0
 offset_bottom = 680.0
 texture = ExtResource("2_kvuet")
 expand_mode = 1
 
 [node name="TextureRect6" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 464.0
 offset_right = 240.0
@@ -819,6 +824,7 @@ texture = ExtResource("3_kvuet")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 488.0
 offset_right = 216.0
@@ -826,6 +832,7 @@ offset_bottom = 584.0
 texture = ExtResource("2_dinhu")
 
 [node name="TextureRect4" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 56.0
 offset_top = 296.0
 offset_right = 216.0
@@ -842,6 +849,7 @@ offset_bottom = 168.0
 texture = ExtResource("4_dinhu")
 
 [node name="TextureRect3" type="TextureRect" parent="Panel/TextureRect3"]
+layout_mode = 0
 offset_top = 88.0
 offset_right = 72.0
 offset_bottom = 160.0
@@ -1085,5 +1093,16 @@ width = 36
 height = 20
 cellWidth = 32
 cellHeight = 32
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_trtic")
+volume_db = -8.0
+
+[node name="edgeCreateAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_ir15t")
+
+[node name="wavespawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_ca42v")
+volume_db = 3.24
 
 [connection signal="toggled" from="Panel/TextureButton" to="." method="_on_texture_button_toggled"]
