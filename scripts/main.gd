@@ -42,7 +42,6 @@ func _ready():
 	
 func setup_node_connections():
 	for node in $Nodes.get_children():
-		print(node.get_child(0).name)
 		node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
 
 func setup_wave_system():
@@ -51,9 +50,7 @@ func setup_wave_system():
 	add_child(wave_timer)
 	wave_timer.timeout.connect(_on_wave_timer_timeout)
 	wave_timer.one_shot = true
-	
-	print("Starting wave system in %.1f seconds" % time_before_first_wave)
-	
+		
 	wave_timer.wait_time = time_before_first_wave
 	wave_timer.start()
 
@@ -121,26 +118,15 @@ func do_edges_cross(e1, e2):
 	return Geometry2D.segment_intersects_segment(a1, a2, b1, b2)
 	
 
-func _on_wave_timer_timeout() -> void:
-	print($Path2D.get_children())
-	print("=== TIMER TIMEOUT DEBUG ===")
-	print("Current state: ", wave_state)
-	print("Current wave: ", current_wave) 
-	print("Wave sizes remaining: ", wave_sizes)
-	print("Timer is_stopped: ", wave_timer.is_stopped())
-	print("==========================")
-	
+func _on_wave_timer_timeout() -> void:	
 	match wave_state:
 		WaveState.WAITING_TO_START:
-			print("Starting wave...")
 			start_current_wave()
 		#
 		WaveState.SPAWNING_ENEMIES:
-			print("Spawning enemy...")
 			spawn_next_enemy()
 		
 		WaveState.WAVE_COMPLETE:
-			print("Wave complete, starting next...")
 			start_next_wave()
 		
 		WaveState.ALL_WAVES_COMPLETE:
@@ -152,28 +138,21 @@ func start_current_wave():
 		print("ERROR: Trying to start wave but no waves left!")
 		wave_state = WaveState.ALL_WAVES_COMPLETE
 		return
-		
-	print(" ----- ** starting wave %d ** ----" % current_wave)
-	
+			
 	# Get the current wave size and immediately remove it from the array
 	var enemies_to_spawn = wave_sizes[0]
 	wave_sizes.remove_at(0)
-	
-	print("Enemies to spawn %d" % enemies_to_spawn)
-	print("Remaining waves after this: ", wave_sizes)
 	
 	# Store this wave's enemy count for spawning
 	current_wave_enemies_spawned = 0
 	current_wave_enemy_target = enemies_to_spawn
 	wave_state = WaveState.SPAWNING_ENEMIES
 	
-	print("spawning next enemy")
 	spawn_next_enemy()
 
 	
 	
 func spawn_next_enemy():
-	print("spawned")
 	if current_wave_enemies_spawned < current_wave_enemy_target:
 		# Init the enemy
 		
@@ -195,17 +174,14 @@ func spawn_next_enemy():
 			complete_current_wave()
 
 func complete_current_wave():
-	print("--- *** wave %d complete *** ---" % current_wave)
-	print("Remaining waves: ", wave_sizes)
 	
 	wave_state = WaveState.WAVE_COMPLETE
 	
 	if wave_sizes.size() > 0:
-		print("Next wave is in %.1f seconds..." % time_between_waves)
+		#print("Next wave is in %.1f seconds..." % time_between_waves)
 		wave_timer.wait_time = time_between_waves
 		wave_timer.start()
 	else:
-		print("ALL WAVES COMPLETE WOOOO")
 		wave_state = WaveState.ALL_WAVES_COMPLETE
 		wave_timer.stop()
 
@@ -215,37 +191,38 @@ func complete_current_wave():
 		
 
 func start_next_wave():
-	print("C")
-	print("starting the next wave")
 	current_wave += 1
-	
-	print(wave_sizes)
 	
 	wave_state = WaveState.WAITING_TO_START
 	start_current_wave()
 
 func _on_texture_button_toggled(toggled_on: bool) -> void:
 	is_placing_node = toggled_on
+	$Grid.visible = is_placing_node
 	print("Node placement mode:", is_placing_node)
+	$Panel/TextureButton.button_pressed = is_placing_node
 
 func _unhandled_input(event):
 	if is_placing_node and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var click_pos = get_global_mouse_position()
-		var grid_size = 32  # Or whatever your tile size is
+		var click_pos = $Camera2D.get_global_mouse_position()
 		var grid_pos = Vector2(
-			floor(click_pos.x / grid_size) * grid_size,
-			floor(click_pos.y / grid_size) * grid_size
+			floor(click_pos.x / grid_size) * grid_size + grid_size / 2,
+			floor(click_pos.y / grid_size) * grid_size + grid_size / 2
 		)
 		place_node(grid_pos)
 		
 func place_node(pos: Vector2):
 	var new_node = preload("res://scenes/node.tscn").instantiate()
+	print(pos)
 	new_node.position = pos
+	
 	$Nodes.add_child(new_node)
-	print("Placed node at:", pos)
-	new_node.get_child(0).connect("node_selected", Callable(self, "_on_node_selected"))
-
+	
+	#reset the button
 	is_placing_node = false
+
+	$Panel/TextureButton.button_pressed = is_placing_node
+	$Grid.visible = is_placing_node
 	$Panel/TextureButton.button_pressed = false
 
 func _on_enemy_despawn(enemy = null) -> void:
@@ -267,4 +244,4 @@ func _draw():
 	# Draw horizontal lines  
 	for y in range(0, int(view_size.y), grid_size):
 		draw_line(Vector2(0, y), Vector2(view_size.x, y), Color(0.2, 0.2, 0.2, 0.4))
-	
+
