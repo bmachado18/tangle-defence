@@ -1,106 +1,137 @@
-# 🎮 Tangle Defense – Game Design Document
+![Tangle Defense](./images/Tangle-Defense-logo.png)
 
-## 📌 Game Title *(Working Title)*
-**Tangle Defense**
+**Nelson, BC – Summer 2025 Game Jam Entry**  
+**Development Time:** 48 Hours  
+**Authors:**  
+- Mathew Terhune – [GitHub](https://github.com/mathewterhune) | [LinkedIn](https://www.linkedin.com/in/mathew-terhune-b07749235/) | [Website](https://mathewterhune.me/) 
+- Brent Machado – [GitHub](https://github.com/your-username) | [LinkedIn](https://linkedin.com/in/your-profile) | [Website](https://yourwebsite.com)
 
-## 🧠 High Concept
-*Tangle Defense* is a strategic tower defense game where players place nodes and connect them with ropes (edges) to block or slow enemies traveling along a central path. The strength of each rope is determined by its length and the number of times it crosses other ropes. Players must carefully design efficient, untangled webs to hold off increasingly strong waves of enemies.
+---
 
-## 🎯 Core Gameplay Loop
-1. **Prep Phase**: Place nodes and draw edges between them.
-2. **Sim Phase**: Enemies spawn and move along the set path.
-3. **Collision Phase**: Edges attempt to block or delay enemies based on calculated strength.
-4. **Evaluate & Repeat**: After a finite number of waves, the game ends with either victory or failure.
+![Main Screen](./images/Main-screen.png)
 
-## 🧱 Core Mechanics
+---
 
-### Node Placement
-- Players place a **fixed number of nodes** each round before the wave starts.
-- Nodes can be placed only in designated areas.
+![Game with towers](./images/game-with-towers.png)
 
-### Edge (Rope) Creation
-- Players draw edges between two placed nodes.
-- Each edge has:
-  - **Strength** calculated as:
+---
 
-	```
-	strength = base / ((1 + k * distance) * (1 + c * crossings))
-	```
+Tangle Defense is a strategy game created for the **2025 Summer Game Jam** under the theme **"Tangle"**.  
+Inspired by *Bloons Tower Defense*, the game challenges players to build spatial defenses using rope connections to stop enemy waves.
 
-	- `distance`: Euclidean distance between nodes
-	- `crossings`: number of edges that intersect this edge
-	- `k`, `c`: tunable constants
+This prototype features:
+- A functioning health and money system
+- A dynamic wave system
+- Interactive UI
+- Parallax background visuals
+- Node placement and rope mechanics
+- One full level with game over and victory screens
 
-### Enemy Waves
-- Enemies spawn in timed intervals and travel along a **fixed path**.
-- Each enemy has:
-  - `strength` (used to break edges)
-  - `speed`
-- Enemies interact with edges:
-  - If `enemy.strength > edge.strength`: edge breaks
-  - If `enemy.strength <= edge.strength`: enemy is slowed or stopped
+> ⚠️ **DISCLAIMER:** This game currently contains only one level. It is a prototype built under strict time constraints.
 
-## 🕹 Controls
+---
 
-| Action                  | Input            |
-|-------------------------|------------------|
-| Place Node              | Left Click       |
-| Select Node             | Left Click       |
-| Draw Edge (Node to Node)| Click → Click    |
-| Start Round             | UI Button        |
+## 🧠 Game Concept
 
-## 📐 UI Elements
-- Round Counter
-- Enemy Counter
-- Edge Strength Display (on hover or selection)
-- Start Wave Button
+Enemies follow a pre-defined path. Your job is to stop them by placing towers and connecting them with ropes. Ropes weaken the more they intersect — so place carefully!
 
-## 🎨 Visual Style
-- 2D Top-down
-- Clean, abstract aesthetic (thread, wireframe, minimalist)
-- Color-coded ropes:
-  - **Green** = strong
-  - **Yellow** = medium
-  - **Red** = weak or tangled
+The **left side** of the screen shows:
+- Health
+- Money
 
-## 🧪 MVP Scope
+The **right side** has a tower placement button. Place two towers and connect them to form a rope that will damage enemies.
 
-### Must Have
-- [x] Node placement
-- [x] Edge creation and removal
-- [x] Rope strength calculation (distance + crossings)
-- [x] Basic enemy movement along fixed path
-- [x] Collision logic between enemy and edge
-- [x] Multiple waves of enemies
-- [x] Visual indicators of edge strength
+---
 
-### Nice to Have
-- [ ] Undo rope placement
-- [ ] Rope snapping animation/sound
-- [ ] Dynamic enemy types (fast/weak vs slow/strong)
-- [ ] Edge repair or cooldown regen
-- [ ] Grid snapping for precise node placement
+## 🧮 Resource Management
 
-## 🧠 Strategic Depth
-Players must balance:
-- Short, strong ropes vs wide coverage
-- Avoiding rope crossings for max strength
-- Limited number of nodes or rope length
-- Emergent gameplay from creative "web" designs
+- **Starting Money:** $100  
+- **Node Cost:** $10  
+- **Rope Cost:** $5  
+- **Enemy Kill Reward:** $5  
 
-## ⚔️ Win / Lose Conditions
-- **Win**: Survive all enemy waves without letting too many escape
-- **Lose**: A set number of enemies (e.g., 10) reach the end
+If an enemy is killed by a rope, you gain $5 back.
 
-## 🔧 Tech Stack
-- **Engine**: Godot (4.x or 3.x)
-- **Language**: GDScript
-- **Target Platform**: Desktop (HTML5 optional)
-- **Resolution**: 1280x720 (scalable)
+![Costs](./images/costs.png)
 
-## 🧩 Stretch Goals
-- Enemies that create crossings as they pass
-- Rope upgrades (e.g., braid ropes to reduce crossing penalty)
-- Multiple level shapes and path layouts
-- Procedural path generation
-- Multiplayer cooperative tangle building
+---
+
+## 💥 Combat System
+
+- Ropes automatically damage enemies that pass through them
+- Rope strength decreases the more they intersect with other ropes
+- Ropes are destroyed if they lose all their health
+- Enemy collisions reduce rope health and trigger damage
+
+![Rope Between Towers](./images/towers-placed-with-rope.png)
+
+---
+
+## ❤️ Health System
+
+- You begin with **10 health**
+- Each enemy reaching the goal reduces your health by their **strength**
+- When health drops to 0 or below, it’s game over
+
+![Health and Money UI](./images/HP-MONEY.png)
+
+---
+
+## ⚔️ Waves & Difficulty
+
+- The game has **5 waves**
+- Each wave increases in enemy count (1, 2, 3, 4, 5...)
+- Enemies grow stronger as the game progresses
+
+---
+
+## 🎮 How to Play
+
+### Goal
+- Defend the end of the enemy path using rope-connected towers
+- Survive all 5 waves
+
+### Gameplay
+- Click the “+” icon to enter placement mode
+- Place towers on the grid ($10 each)
+- Select two placed towers to connect them with a rope ($5)
+- Ropes damage enemies that touch them
+- Intersecting ropes are weaker
+
+### Money
+- Start with $100
+- Earn $5 for each enemy destroyed
+- Spend wisely to keep building and defending
+
+### Health
+- Start with 10 health
+- Enemies reduce your health based on their strength
+- If health hits 0, the game ends
+
+### Monster Strength
+- Stronger enemies appear each wave
+- Enemy strength determines:
+  - Damage to the player’s health
+  - Damage dealt to ropes
+
+---
+
+## 📁 Project Structure
+
+```text
+scenes/
+├── game.tscn         # Main game scene
+├── UI.tscn           # Main menu
+├── HowToPlay.tscn    # Instructions screen
+├── GameOver.tscn     # Game over screen
+├── player_win.tscn   # Victory screen
+
+scripts/
+├── main.gd           # Core game logic
+├── Enemy.gd          # Enemy behavior and rope collision
+├── Edge.gd           # Rope connection behavior
+├── Node.gd           # Handles node placement and selection
+├── sprite_2d.gd      # Sprite control logic
+├── game_over.gd      # Game over screen handling
+├── player_win.gd     # Victory screen behavior
+```
