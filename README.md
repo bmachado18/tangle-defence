@@ -52,7 +52,7 @@ The **right side** has a tower placement button. Place two towers and connect th
 
 If an enemy is killed by a rope, you gain $5 back.
 
-![Costs](./images/costs.png)
+![Costs](./images/Costs.png)
 
 ---
 
