@@ -16,7 +16,7 @@
 
 ---
 
-Tangle Defense is a strategy game created for the **2025 Summer Game Jam** under the theme **"Tangle"**.  
+Tangle Defense is a strategy game created for the **Nelson 2025 Summer Game Jam** under the theme **"Tangle"**.  
 Inspired by *Bloons Tower Defense*, the game challenges players to build spatial defenses using rope connections to stop enemy waves.
 
 This prototype features:
@@ -27,30 +27,26 @@ This prototype features:
 - Node placement and rope mechanics
 - One full level with game over and victory screens
 
-> ⚠️ **DISCLAIMER:** This game currently contains only one level. It is a prototype built under strict time constraints.
+> **DISCLAIMER:** This game currently contains only one level. It is a prototype built under strict time constraints.
 
 ---
 
-## 🧠 Game Concept
+## Game Concept
 
-Enemies follow a pre-defined path. Your job is to stop them by placing towers and connecting them with ropes. Ropes weaken the more they intersect — so place carefully!
+Enemies follow a pre-defined path. Your job is to stop them by placing towers and connecting them with ropes. Ropes strengthen the more they intersect — so place strategically!
 
-The **left side** of the screen shows:
-- Health
-- Money
-
-The **right side** has a tower placement button. Place two towers and connect them to form a rope that will damage enemies.
+The **right side** of the screen shows your health and money, as well as a tower placement button. Place two towers and connect them to form a rope that will damage enemies.
 
 ---
 
-## 🧮 Resource Management
+## Resource Management
 
 - **Starting Money:** $100  
 - **Node Cost:** $10  
 - **Rope Cost:** $5  
 - **Enemy Kill Reward:** $5  
 
-If an enemy is killed by a rope, you gain $5 back.
+If an enemy is stopped by a rope, you gain $5 back.
 
 ![Costs](./images/Costs.png)
 
@@ -58,16 +54,16 @@ If an enemy is killed by a rope, you gain $5 back.
 
 ## 💥 Combat System
 
-- Ropes automatically damage enemies that pass through them
-- Rope strength decreases the more they intersect with other ropes
+- Ropes automatically damage enemies that pass through them based on proximity
+- Rope strength increases the more they intersect with other ropes
 - Ropes are destroyed if they lose all their health
-- Enemy collisions reduce rope health and trigger damage
+- Enemy touching ropes reduce rope health and trigger damage based on the enemies strength
 
 ![Rope Between Towers](./images/towers-placed-with-rope.png)
 
 ---
 
-## ❤️ Health System
+## ❤Health System
 
 - You begin with **10 health**
 - Each enemy reaching the goal reduces your health by their **strength**
@@ -81,7 +77,6 @@ If an enemy is killed by a rope, you gain $5 back.
 
 - The game has **5 waves**
 - Each wave increases in enemy count (1, 2, 3, 4, 5...)
-- Enemies grow stronger as the game progresses
 
 ---
 
@@ -92,11 +87,11 @@ If an enemy is killed by a rope, you gain $5 back.
 - Survive all 5 waves
 
 ### Gameplay
-- Click the “+” icon to enter placement mode
+- Click the tower icon button to enter placement mode
 - Place towers on the grid ($10 each)
 - Select two placed towers to connect them with a rope ($5)
 - Ropes damage enemies that touch them
-- Intersecting ropes are weaker
+- Intersecting ropes are great for strategy
 
 ### Money
 - Start with $100
