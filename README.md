@@ -4,7 +4,7 @@
 **Development Time:** 48 Hours  
 **Authors:**  
 - Mathew Terhune – [GitHub](https://github.com/mathewterhune) | [LinkedIn](https://www.linkedin.com/in/mathew-terhune-b07749235/) | [Website](https://mathewterhune.me/) 
-- Brent Machado – [GitHub](https://github.com/your-username) | [LinkedIn](https://linkedin.com/in/your-profile) | [Website](https://yourwebsite.com)
+- Brent Machado – [GitHub](https://github.com/bmachado18) | [LinkedIn](https://www.linkedin.com/in/brent-machado/) | [Website](https://bmachado18.github.io)
 
 ---
 
